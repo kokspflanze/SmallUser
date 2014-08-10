@@ -1,0 +1,30 @@
+{
+	"name": "kokspflanze/small-user",
+	"description": "ZendFramework 2 Module for user",
+	"type": "library",
+	"keywords": [
+		"framework",
+		"zf2",
+		"user",
+		"auth",
+		"acl"
+	],
+	"homepage": "https://github.com/kokspflanze/SmallUser",
+	"autoload": {
+		"psr-0": {
+			"SmallUser\\": "src/"
+		}
+	},
+	"authors": [
+		{
+			"name": "Oliver"
+		}
+	],
+	"require": {
+		"php": ">=5.3.3",
+		"bjyoungblood/bjy-authorize": "1.*",
+		"doctrine/doctrine-orm-module": "0.*",
+		"zf-commons/zfc-user": "0.*",
+		"zf-commons/zfc-user-doctrine-orm": "0.*"
+	}
+}
