@@ -82,7 +82,7 @@ class AuthController extends AbstractActionController {
 	}
 
 	/**
-	 * @return \PServerCMS\Service\User
+	 * @return \SmallUser\Service\User
 	 */
 	protected function getUserService(){
 		if (!$this->userService) {
