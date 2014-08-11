@@ -5,20 +5,12 @@ namespace SmallUser\Entity;
 
 interface UsersInterface {
 
-
-	/**
-	 * Get usrid
-	 *
-	 * @return integer
-	 */
-	public function getUsrid();
-
 	/**
 	 * Set username
 	 *
 	 * @param string $username
 	 *
-	 * @return Users
+	 * @return UsersInterface
 	 */
 	public function setUsername( $username );
 
@@ -34,7 +26,7 @@ interface UsersInterface {
 	 *
 	 * @param string $password
 	 *
-	 * @return Users
+	 * @return UsersInterface
 	 */
 	public function setPassword( $password );
 
@@ -46,67 +38,12 @@ interface UsersInterface {
 	public function getPassword();
 
 	/**
-	 * Set email
-	 *
-	 * @param string $email
-	 *
-	 * @return Users
-	 */
-	public function setEmail( $email );
-
-	/**
-	 * Get email
-	 *
-	 * @return string
-	 */
-	public function getEmail();
-
-	/**
-	 * Set created
-	 *
-	 * @param \DateTime $created
-	 *
-	 * @return Users
-	 */
-	public function setCreated( $created );
-
-	/**
-	 * Get created
-	 *
-	 * @return \DateTime
-	 */
-	public function getCreated();
-
-	/**
-	 * Add userRole
-	 *
-	 * @param UserRole $role
-	 *
-	 * @return Users
-	 */
-	public function addUserRole( $role );
-
-	/**
-	 * Remove userRole
-	 *
-	 * @param UserRole $role
-	 */
-	public function removeUserRole( $role );
-
-	/**
-	 * Get userRole
-	 *
-	 * @return \Doctrine\Common\Collections\Collection
-	 */
-	public function getUserRole();
-
-	/**
 	 * @return \Zend\Permissions\Acl\Role\RoleInterface[]
 	 */
 	public function getRoles();
 
 	/**
-	 * @param Users $oEntity
+	 * @param UsersInterface $oEntity
 	 * @param       $plaintext
 	 *
 	 * @return bool
