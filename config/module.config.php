@@ -32,7 +32,7 @@ return array(
 	),
 	'view_manager' => array(
 		'template_map' => array(
-			'small-user/login'			=> __DIR__ . '/../view/small-user/auth/view.phtml',
+			'small-user/login'			=> __DIR__ . '/../view/small-user/auth/login.phtml',
 			'small-user/logout-page'	=> __DIR__ . '/../view/small-user/auth/logout-page.phtml',
 		),
 		'template_path_stack' => array(
