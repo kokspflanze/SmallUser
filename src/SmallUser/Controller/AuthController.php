@@ -3,6 +3,7 @@
 namespace SmallUser\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 class AuthController extends AbstractActionController {
 	const ErrorNameSpace = 'small-user-auth';
@@ -29,10 +30,12 @@ class AuthController extends AbstractActionController {
 		$oRequest = $this->getRequest();
 
 		if (!$oRequest->isPost()){
-			return array(
+			$view = new ViewModel(array(
 				'aErrorMessages' => $this->flashmessenger()->getMessagesFromNamespace(self::ErrorNameSpace),
 				'loginForm' => $oForm
-			);
+			));
+			$view->setTemplate('small-user/login');
+			return $view;
 		}
 
 		if($this->getUserService()->login($this->params()->fromPost())){
@@ -56,7 +59,9 @@ class AuthController extends AbstractActionController {
 	 * LogoutPage
 	 */
 	public function logoutPageAction(){
-		return array();
+		$view = new ViewModel();
+		$view->setTemplate('small-user/logout-page');
+		return $view;
 	}
 
 	/**
