@@ -22,11 +22,11 @@ class AuthController extends AbstractActionController {
 	public function loginAction() {
 
 		//if already login, redirect to success page
-		if ($this->getAuthService()->hasIdentity()){
+		if ($this->getUserService()->getAuthService()->hasIdentity()){
 			return $this->redirect()->toRoute(self::RouteLoggedIn);
 		}
 
-		$oForm = $this->getLoginForm();
+		$oForm = $this->getUserService()->getLoginForm();
 		$oRequest = $this->getRequest();
 
 		if (!$oRequest->isPost()){
@@ -49,8 +49,8 @@ class AuthController extends AbstractActionController {
 	 */
 	public function logoutAction(){
 
-		$this->getAuthService()->getStorage()->clear();
-		$this->getAuthService()->clearIdentity();
+		$this->getUserService()->getAuthService()->getStorage()->clear();
+		$this->getUserService()->getAuthService()->clearIdentity();
 
 		return $this->redirect()->toRoute('small-user-auth', array('action' => 'logout-page'));
 	}
@@ -62,28 +62,6 @@ class AuthController extends AbstractActionController {
 		$view = new ViewModel();
 		$view->setTemplate('small-user/logout-page');
 		return $view;
-	}
-
-	/**
-	 * @return \Zend\Authentication\AuthenticationService
-	 */
-	protected function getAuthService() {
-		if (!$this->authService) {
-			$this->authService = $this->getServiceLocator()->get('small_user_auth_service');
-		}
-
-		return $this->authService;
-	}
-
-	/**
-	 * @return \SmallUser\Form\Login
-	 */
-	protected function getLoginForm() {
-		if (!$this->loginForm) {
-			$this->loginForm = $this->getServiceLocator()->get('small_user_login_form');
-		}
-
-		return $this->loginForm;
 	}
 
 	/**

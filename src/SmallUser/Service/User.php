@@ -85,6 +85,27 @@ class User extends InvokableBase {
 
 	}
 
+	/**
+	 * @return \SmallUser\Form\Login
+	 */
+	public function getLoginForm() {
+		if (! $this->loginForm) {
+			$this->loginForm = $this->getServiceManager()->get('small_user_login_form');
+		}
+
+		return $this->loginForm;
+	}
+
+	/**
+	 * @return \Zend\Authentication\AuthenticationService
+	 */
+	public function getAuthService() {
+		if (! $this->authService) {
+			$this->authService = $this->getServiceManager()->get('small_user_auth_service');
+		}
+
+		return $this->authService;
+	}
 
 	/**
 	 * @param UsersInterface $oUser
@@ -104,29 +125,6 @@ class User extends InvokableBase {
 		$oAdapter->setIdentity($oUser->getUsername());
 		$oAdapter->setCredential($oUser->getPassword());
 		return $oAuthService->authenticate($oAdapter);
-	}
-
-
-	/**
-	 * @return \Zend\Authentication\AuthenticationService
-	 */
-	protected function getAuthService() {
-		if (! $this->authService) {
-			$this->authService = $this->getServiceManager()->get('small_user_auth_service');
-		}
-
-		return $this->authService;
-	}
-
-	/**
-	 * @return \SmallUser\Form\Login
-	 */
-	protected function getLoginForm() {
-		if (! $this->loginForm) {
-			$this->loginForm = $this->getServiceManager()->get('small_user_login_form');
-		}
-
-		return $this->loginForm;
 	}
 
 	/**
