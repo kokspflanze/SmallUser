@@ -62,4 +62,10 @@ return array(
 			),
 		),
 	),
+	'small-user' => array(
+		'user_entity' => array(
+			'class' => 'SmallUser\Entity\Users',
+			'username' => 'username'
+		)
+	)
 );
