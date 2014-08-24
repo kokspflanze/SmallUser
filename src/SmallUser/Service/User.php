@@ -2,7 +2,6 @@
 
 namespace SmallUser\Service;
 
-use SmallUser\Entity\Users;
 use SmallUser\Entity\UsersInterface;
 use SmallUser\Mapper\HydratorUser;
 
@@ -58,20 +57,6 @@ class User extends InvokableBase {
 			$this->handleInvalidLogin($user);
 		}
 		return false;
-	}
-
-	/**
-	 * Login with a User
-	 * @param UsersInterface $user
-	 */
-	public function doAuthentication( UsersInterface $user ){
-		$find = array($this->getUserEntityUserName() => $user->getUsername());
-		$user = $this->getEntityManager()->getRepository($this->getUserEntityClassName())->findOneBy($find);
-
-		$authService = $this->getAuthService();
-		// FIX: no roles after register
-		$user->getRoles();
-		$authService->getStorage()->write($user);
 	}
 
 	/**
