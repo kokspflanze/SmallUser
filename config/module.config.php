@@ -6,7 +6,7 @@ return array(
 			'small-user-auth' => array(
 				'type' => 'segment',
 				'options' => array(
-					'route'    => '/auth/[:action][/:code]',
+					'route'    => '/auth[/:action][/:code].html',
 					'constraints' => array(
 						'action'   => '[a-zA-Z][a-zA-Z0-9_-]*',
 						'code'     => '[a-zA-Z0-9]*',
