@@ -165,8 +165,7 @@ class User extends InvokableBase {
 	 */
 	protected function getUserEntityClassName(){
 		if (! $this->userEntityClassName) {
-			$config = $this->getServiceManager()->get('Config');
-			$this->userEntityClassName = $config['small-user']['user_entity']['class'];
+			$this->userEntityClassName = $this->getConfig()['small-user']['user_entity']['class'];
 		}
 
 		return $this->userEntityClassName;
@@ -177,8 +176,7 @@ class User extends InvokableBase {
 	 */
 	protected function getUserEntityUserName(){
 		if (! $this->userEntityUserName) {
-			$config = $this->getServiceManager()->get('Config');
-			$this->userEntityUserName = $config['small-user']['user_entity']['username'];
+			$this->userEntityUserName = $this->getConfig()['small-user']['user_entity']['username'];
 		}
 
 		return $this->userEntityUserName;

@@ -203,14 +203,14 @@ class Users implements ProviderInterface, UsersInterface {
 	}
 
 	/**
-	 * @param Users $oEntity
+	 * @param Users $entity
 	 * @param       $plaintext
 	 *
 	 * @return bool
 	 */
-	public static function hashPassword( $oEntity, $plaintext ){
+	public static function hashPassword( $entity, $plaintext ){
 		$oBcrypt = new Bcrypt();
-		return $oBcrypt->verify($plaintext, $oEntity->getPassword());
+		return $oBcrypt->verify($plaintext, $entity->getPassword());
 	}
 
 }

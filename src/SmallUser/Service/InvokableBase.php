@@ -51,6 +51,13 @@ class InvokableBase implements ServiceManagerAwareInterface {
 	}
 
 	/**
+	 * @return array|object
+	 */
+	public function getConfig(){
+		return $this->getServiceManager()->get('Config');
+	}
+
+	/**
 	 * @return \Zend\Mvc\Controller\PluginManager
 	 */
 	protected function getControllerPluginManager(){

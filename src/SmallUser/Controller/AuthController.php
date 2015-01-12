@@ -23,7 +23,7 @@ class AuthController extends AbstractActionController {
 
 		//if already login, redirect to success page
 		if ($this->getUserService()->getAuthService()->hasIdentity()){
-			return $this->redirect()->toRoute(self::RouteLoggedIn);
+			return $this->redirect()->toRoute($this->getLoggedInRoute());
 		}
 
 		$oForm = $this->getUserService()->getLoginForm();
@@ -39,9 +39,17 @@ class AuthController extends AbstractActionController {
 		}
 
 		if($this->getUserService()->login($this->params()->fromPost())){
-			return $this->redirect()->toRoute(self::RouteLoggedIn);
+			return $this->redirect()->toRoute($this->getLoggedInRoute());
 		}
 		return $this->redirect()->toUrl($this->url()->fromRoute('small-user-auth'));
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function getLoggedInRoute(){
+		$configRoute = $this->getUserService()->getConfig()['small-user']['login']['route'];
+		return $configRoute!=false?$configRoute:self::RouteLoggedIn;
 	}
 
 	/**

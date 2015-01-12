@@ -69,6 +69,9 @@ return array(
 		'user_entity' => array(
 			'class' => 'SmallUser\Entity\Users',
 			'username' => 'username'
+		),
+		'login' => array(
+			'route' => ''
 		)
 	)
 );
