@@ -20,6 +20,9 @@ return array(
 		),
 	),
 	'service_manager' => array(
+		'invokables' => array(
+			'small_user_service' => 'SmallUser\Service\User',
+		),
 		'abstract_factories' => array(
 			'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
 			'Zend\Log\LoggerAbstractServiceFactory',

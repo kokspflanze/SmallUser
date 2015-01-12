@@ -30,9 +30,6 @@ class Module {
 	 */
 	public function getServiceConfig() {
 		return array(
-			'invokables' => array(
-				'small_user_service'				=> 'SmallUser\Service\User',
-			),
 			'factories' => array(
 				'small_user_auth_service' => function($sm){
 					/** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
