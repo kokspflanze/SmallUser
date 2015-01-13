@@ -136,10 +136,12 @@ class User extends InvokableBase {
 	}
 
 	/**
+	 * @TODO better fix
 	 * @param UsersInterface $user
 	 * @return bool
 	 */
 	protected function isValidLogin( UsersInterface $user ) {
+		$user->getRoles();
 		return true;
 	}
 
