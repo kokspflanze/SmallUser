@@ -12,8 +12,8 @@ namespace SmallUser\Service;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 
-class InvokableBase implements ServiceManagerAwareInterface {
-
+class InvokableBase implements ServiceManagerAwareInterface
+{
 	/** @var ServiceManager */
 	protected $serviceManager;
 	/** @var \Doctrine\ORM\EntityManager */
@@ -23,59 +23,67 @@ class InvokableBase implements ServiceManagerAwareInterface {
 	/** @var \Zend\Mvc\Controller\PluginManager */
 	protected $controllerPluginManager;
 
-
-	public function getServiceManager() {
+    /**
+     * @return ServiceManager
+     */
+	public function getServiceManager()
+    {
 		return $this->serviceManager;
 	}
 
 	/**
-	 * @param ServiceManager $oServiceManager
+	 * @param ServiceManager $serviceManager
 	 *
 	 * @return $this
 	 */
-	public function setServiceManager( ServiceManager $oServiceManager ) {
-		$this->serviceManager = $oServiceManager;
+	public function setServiceManager( ServiceManager $serviceManager )
+    {
+		$this->serviceManager = $serviceManager;
 
 		return $this;
 	}
 
-	/**
-	 * @return \Doctrine\ORM\EntityManager
-	 */
-	public function getEntityManager() {
-		if (!$this->entityManager) {
-			$this->entityManager = $this->getServiceManager()->get('Doctrine\ORM\EntityManager');
-		}
+    /**
+     * @return \Doctrine\ORM\EntityManager
+     */
+    public function getEntityManager()
+    {
+        if (!$this->entityManager) {
+            $this->entityManager = $this->getServiceManager()->get( 'Doctrine\ORM\EntityManager' );
+        }
 
-		return $this->entityManager;
-	}
+        return $this->entityManager;
+    }
 
-	/**
-	 * @return array|object
-	 */
-	public function getConfig(){
-		return $this->getServiceManager()->get('Config');
-	}
+    /**
+     * @return array|object
+     */
+    public function getConfig()
+    {
+        return $this->getServiceManager()->get( 'Config' );
+    }
 
-	/**
-	 * @return \Zend\Mvc\Controller\PluginManager
-	 */
-	protected function getControllerPluginManager(){
-		if (! $this->controllerPluginManager) {
-			$this->controllerPluginManager = $this->getServiceManager()->get('ControllerPluginManager');
-		}
+    /**
+     * @return \Zend\Mvc\Controller\PluginManager
+     */
+    protected function getControllerPluginManager()
+    {
+        if (!$this->controllerPluginManager) {
+            $this->controllerPluginManager = $this->getServiceManager()->get( 'ControllerPluginManager' );
+        }
 
-		return $this->controllerPluginManager;
-	}
+        return $this->controllerPluginManager;
+    }
 
-	/**
-	 * @return \Zend\Mvc\Controller\Plugin\FlashMessenger
-	 */
-	protected function getFlashMessenger(){
-		if (! $this->flashMessenger) {
-			$this->flashMessenger = $this->getControllerPluginManager()->get('flashMessenger');
-		}
+    /**
+     * @return \Zend\Mvc\Controller\Plugin\FlashMessenger
+     */
+    protected function getFlashMessenger()
+    {
+        if (!$this->flashMessenger) {
+            $this->flashMessenger = $this->getControllerPluginManager()->get( 'flashMessenger' );
+        }
 
-		return $this->flashMessenger;
-	}
+        return $this->flashMessenger;
+    }
 }

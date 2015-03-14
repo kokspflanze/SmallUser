@@ -6,8 +6,8 @@ use ZfcUser\Mapper\Exception;
 use Zend\Stdlib\Hydrator\ClassMethods;
 use SmallUser\Entity\UsersInterface as Users;
 
-class HydratorUser extends ClassMethods {
-
+class HydratorUser extends ClassMethods
+{
 	/**
 	 * Extract values from an object
 	 *
@@ -15,7 +15,8 @@ class HydratorUser extends ClassMethods {
 	 * @return array
 	 * @throws Exception\InvalidArgumentException
 	 */
-	public function extract($object) {
+	public function extract($object)
+    {
 		if (!$object instanceof Users) {
 			throw new Exception\InvalidArgumentException('$object must be an instance of Users');
 		}
@@ -32,7 +33,8 @@ class HydratorUser extends ClassMethods {
 	 * @return Users
 	 * @throws Exception\InvalidArgumentException
 	 */
-	public function hydrate(array $data, $object) {
+	public function hydrate(array $data, $object)
+    {
 		if (!$object instanceof Users) {
 			throw new Exception\InvalidArgumentException('$object must be an instance of Users');
 		}

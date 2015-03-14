@@ -3,8 +3,8 @@
 namespace SmallUser\Entity;
 
 
-interface UsersInterface {
-
+interface UsersInterface
+{
 	/**
 	 * Set username
 	 *

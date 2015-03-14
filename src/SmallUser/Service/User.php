@@ -5,7 +5,8 @@ namespace SmallUser\Service;
 use SmallUser\Entity\UsersInterface;
 use SmallUser\Mapper\HydratorUser;
 
-class User extends InvokableBase {
+class User extends InvokableBase
+{
 	const ErrorNameSpace = 'small-user-auth';
 	/** @var \Zend\Authentication\AuthenticationService */
 	protected $authService;
@@ -22,8 +23,8 @@ class User extends InvokableBase {
 	 * @param array $data
 	 * @return bool
 	 */
-	public function login( array $data ){
-
+	public function login( array $data )
+    {
 		$class = $this->getUserEntityClassName();
 
 		$form = $this->getLoginForm();
@@ -66,7 +67,8 @@ class User extends InvokableBase {
 	 *
 	 * @return UsersInterface|bool
 	 */
-	public function register( array $data ){
+	public function register( array $data )
+    {
 
 	}
 
@@ -75,14 +77,16 @@ class User extends InvokableBase {
 	 *
 	 * @param array $data
 	 */
-	public function lostPw( array $data ){
+	public function lostPw( array $data )
+    {
 
 	}
 
 	/**
 	 * @return \SmallUser\Form\Login
 	 */
-	public function getLoginForm() {
+	public function getLoginForm()
+    {
 		if (! $this->loginForm) {
 			$this->loginForm = $this->getServiceManager()->get('small_user_login_form');
 		}
@@ -93,7 +97,8 @@ class User extends InvokableBase {
 	/**
 	 * @return \Zend\Authentication\AuthenticationService
 	 */
-	public function getAuthService() {
+	public function getAuthService()
+    {
 		if (! $this->authService) {
 			$this->authService = $this->getServiceManager()->get('small_user_auth_service');
 		}
@@ -104,7 +109,8 @@ class User extends InvokableBase {
 	/**
 	 * @param UsersInterface $user
 	 */
-	protected function doLogin(UsersInterface $user) {
+	protected function doLogin(UsersInterface $user)
+    {
 		$this->getFlashMessenger()->clearCurrentMessagesFromNamespace(self::ErrorNameSpace);
 	}
 
@@ -113,7 +119,8 @@ class User extends InvokableBase {
 	 * @param UsersInterface $user
 	 * @return \Zend\Authentication\Result
 	 */
-	protected function getAuthResult(\Zend\Authentication\AuthenticationService $authService, UsersInterface $user){
+	protected function getAuthResult(\Zend\Authentication\AuthenticationService $authService, UsersInterface $user)
+    {
 		/** @var \DoctrineModule\Authentication\Adapter\ObjectRepository $adapter */
 		$adapter = $authService->getAdapter();
 		$adapter->setIdentity($user->getUsername());
@@ -124,14 +131,16 @@ class User extends InvokableBase {
 	/**
 	 * @param $message
 	 */
-	protected function setFailedLoginMessage( $message ){
+	protected function setFailedLoginMessage( $message )
+    {
 		$this->failedLoginMessage = $message;
 	}
 
 	/**
 	 * @return string
 	 */
-	protected function getFailedLoginMessage() {
+	protected function getFailedLoginMessage()
+    {
 		return $this->failedLoginMessage;
 	}
 
@@ -140,7 +149,8 @@ class User extends InvokableBase {
 	 * @param UsersInterface $user
 	 * @return bool
 	 */
-	protected function isValidLogin( UsersInterface $user ) {
+	protected function isValidLogin( UsersInterface $user )
+    {
 		$user->getRoles();
 		return true;
 	}
@@ -151,21 +161,24 @@ class User extends InvokableBase {
 	 *
 	 * @return bool
 	 */
-	protected function handleInvalidLogin( UsersInterface $user ) {
+	protected function handleInvalidLogin( UsersInterface $user )
+    {
 		return false;
 	}
 
 	/**
 	 * @return bool
 	 */
-	protected function isIpAllowed(){
+	protected function isIpAllowed()
+    {
 		return true;
 	}
 
 	/**
 	 * @return string
 	 */
-	protected function getUserEntityClassName(){
+	protected function getUserEntityClassName()
+    {
 		if (! $this->userEntityClassName) {
 			$this->userEntityClassName = $this->getConfig()['small-user']['user_entity']['class'];
 		}
@@ -176,7 +189,8 @@ class User extends InvokableBase {
 	/**
 	 * @return string
 	 */
-	protected function getUserEntityUserName(){
+	protected function getUserEntityUserName()
+    {
 		if (! $this->userEntityUserName) {
 			$this->userEntityUserName = $this->getConfig()['small-user']['user_entity']['username'];
 		}

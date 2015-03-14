@@ -6,10 +6,19 @@ use Zend\Form\Form;
 use Zend\Form\Element;
 use ZfcBase\Form\ProvidesEventsForm;
 
-class Login extends ProvidesEventsForm {
-
-    public function __construct(){
+class Login extends ProvidesEventsForm
+{
+    /**
+     *
+     */
+    public function __construct()
+    {
         parent::__construct();
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Csrf',
+            'name' => 'eugzhoe45gh3o49ugfgj2wrtu7gz50'
+        ));
 
         $this->add(array(
             'name' => 'username',
