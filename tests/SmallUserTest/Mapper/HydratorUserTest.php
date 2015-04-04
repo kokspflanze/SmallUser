@@ -19,7 +19,7 @@ class HydratorUserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \ZfcUser\Mapper\Exception\InvalidArgumentException
+     * @expectedException \Exception
      */
     public function testExtractException()
     {
@@ -38,7 +38,7 @@ class HydratorUserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \ZfcUser\Mapper\Exception\InvalidArgumentException
+     * @expectedException \Exception
      */
     public function testHydrateException()
     {
