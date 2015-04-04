@@ -36,18 +36,18 @@ class Module {
 			'factories' => array(
 				'small_user_auth_service' => function($sm){
 					/** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
-					/** @var \DoctrineModule\Authentication\Adapter\ObjectRepository $oAdapter */
-					$oAdapter = $sm->get('doctrine.authenticationadapter.odm_default');
+					/** @var \DoctrineModule\Authentication\Adapter\ObjectRepository $adapter */
+					$adapter = $sm->get('doctrine.authenticationadapter.odm_default');
 
 					// In Config there is not EntityManager =(, so we have to add it now =)
-					$aConfig = $sm->get('Config');
-					$aConfig = $aConfig['authenticationadapter']['odm_default'];
-					$aConfig['objectManager'] = $sm->get('Doctrine\ORM\EntityManager');
-					$oAdapter->setOptions( $aConfig );
+					$config = $sm->get('Config');
+					$config = $config['authenticationadapter']['odm_default'];
+					$config['objectManager'] = $sm->get('Doctrine\ORM\EntityManager');
+					$adapter->setOptions( $config );
 
-					$oAuthService = new \Zend\Authentication\AuthenticationService();
-					$oAuthService->setStorage( new AuthStorage() );
-					return $oAuthService->setAdapter($oAdapter);
+					$authService = new \Zend\Authentication\AuthenticationService();
+					$authService->setStorage( new AuthStorage() );
+					return $authService->setAdapter($adapter);
 				},
 				'small_user_login_form' => function(){
 					$form = new Form\Login();

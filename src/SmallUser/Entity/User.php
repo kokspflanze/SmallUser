@@ -2,18 +2,17 @@
 
 namespace SmallUser\Entity;
 
-use BjyAuthorize\Provider\Role\ProviderInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Crypt\Password\Bcrypt;
 
 /**
- * Users
+ * User
  *
  * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="username_UNIQUE", columns={"username"})})
  * @ORM\MappedSuperclass
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Repository\User")
  */
-class Users implements ProviderInterface, UsersInterface
+class User implements UserInterface
 {
     /**
      * @var integer
@@ -22,7 +21,7 @@ class Users implements ProviderInterface, UsersInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $usrid;
+    private $usrId;
 
     /**
      * @var string
@@ -55,7 +54,7 @@ class Users implements ProviderInterface, UsersInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="SmallUser\Entity\UserRole", mappedBy="usersUsrid")
+     * @ORM\ManyToMany(targetEntity="UserRole", mappedBy="user")
      */
     private $userRole;
 
@@ -68,23 +67,35 @@ class Users implements ProviderInterface, UsersInterface
         $this->created  = new \DateTime();
     }
 
+    /**
+     * Set usrId
+     *
+     * @param $id
+     * @return $this
+     */
+    public function setId( $id )
+    {
+        $this->usrId = $id;
+
+        return $this;
+    }
 
     /**
-     * Get usrid
+     * Get usrId
      *
      * @return integer
      */
-    public function getUsrid()
+    public function getId()
     {
-        return $this->usrid;
+        return $this->usrId;
     }
 
     /**
      * Set username
-     *
+
      * @param string $username
-     *
-     * @return Users
+
+     * @return User
      */
     public function setUsername( $username )
     {
@@ -105,10 +116,10 @@ class Users implements ProviderInterface, UsersInterface
 
     /**
      * Set password
-     *
+
      * @param string $password
-     *
-     * @return Users
+
+     * @return User
      */
     public function setPassword( $password )
     {
@@ -129,10 +140,10 @@ class Users implements ProviderInterface, UsersInterface
 
     /**
      * Set email
-     *
+
      * @param string $email
-     *
-     * @return Users
+
+     * @return User
      */
     public function setEmail( $email )
     {
@@ -153,10 +164,10 @@ class Users implements ProviderInterface, UsersInterface
 
     /**
      * Set created
-     *
+
      * @param \DateTime $created
-     *
-     * @return Users
+
+     * @return User
      */
     public function setCreated( $created )
     {
@@ -177,10 +188,10 @@ class Users implements ProviderInterface, UsersInterface
 
     /**
      * Add userRole
-     *
+
      * @param UserRole $role
-     *
-     * @return Users
+
+     * @return User
      */
     public function addUserRole( $role )
     {
@@ -218,15 +229,15 @@ class Users implements ProviderInterface, UsersInterface
     }
 
     /**
-     * @param Users $entity
+     * @param User $entity
      * @param       $plaintext
-     *
+
      * @return bool
      */
     public static function hashPassword( $entity, $plaintext )
     {
-        $oBcrypt = new Bcrypt();
-        return $oBcrypt->verify( $plaintext, $entity->getPassword() );
+        $bCrypt = new Bcrypt();
+        return $bCrypt->verify( $plaintext, $entity->getPassword() );
     }
 
 }

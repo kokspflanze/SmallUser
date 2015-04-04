@@ -2,7 +2,7 @@
 
 namespace SmallUser\Service;
 
-use SmallUser\Entity\UsersInterface;
+use SmallUser\Entity\UserInterface;
 use SmallUser\Mapper\HydratorUser;
 
 class User extends InvokableBase
@@ -33,18 +33,19 @@ class User extends InvokableBase
 		$form->setData( $data);
 
 		$this->getFlashMessenger()->setNamespace(self::ErrorNameSpace)->addMessage($this->getFailedLoginMessage());
+
 		if(!$form->isValid()){
 			return false;
 		}
+
 		if(!$this->isIpAllowed()){
 			return false;
 		}
-		/** @var \SmallUser\Entity\Users $user */
+
 		$user = $form->getData();
 		$authService = $this->getAuthService();
 		$result = $this->getAuthResult($authService, $user);
 		if($result->isValid()){
-			/** @var \SmallUser\Entity\Users $oUser */
 			$user = $result->getIdentity();
 			if($this->isValidLogin($user)){
 				$this->doLogin($user);
@@ -57,15 +58,16 @@ class User extends InvokableBase
 		}else{
 			$this->handleInvalidLogin($user);
 		}
+
 		return false;
 	}
 
 	/**
 	 * TODO
-	 *
+
 	 * @param array $data
-	 *
-	 * @return UsersInterface|bool
+
+	 * @return UserInterface|bool
 	 */
 	public function register( array $data )
     {
@@ -107,24 +109,25 @@ class User extends InvokableBase
 	}
 
 	/**
-	 * @param UsersInterface $user
+	 * @param UserInterface $user
 	 */
-	protected function doLogin(UsersInterface $user)
+	protected function doLogin(UserInterface $user)
     {
 		$this->getFlashMessenger()->clearCurrentMessagesFromNamespace(self::ErrorNameSpace);
 	}
 
 	/**
 	 * @param \Zend\Authentication\AuthenticationService $authService
-	 * @param UsersInterface $user
+	 * @param UserInterface $user
 	 * @return \Zend\Authentication\Result
 	 */
-	protected function getAuthResult(\Zend\Authentication\AuthenticationService $authService, UsersInterface $user)
+	protected function getAuthResult(\Zend\Authentication\AuthenticationService $authService, UserInterface $user)
     {
 		/** @var \DoctrineModule\Authentication\Adapter\ObjectRepository $adapter */
 		$adapter = $authService->getAdapter();
 		$adapter->setIdentity($user->getUsername());
 		$adapter->setCredential($user->getPassword());
+
 		return $authService->authenticate($adapter);
 	}
 
@@ -146,22 +149,23 @@ class User extends InvokableBase
 
 	/**
 	 * @TODO better fix
-	 * @param UsersInterface $user
+	 * @param UserInterface $user
 	 * @return bool
 	 */
-	protected function isValidLogin( UsersInterface $user )
+	protected function isValidLogin( UserInterface $user )
     {
 		$user->getRoles();
+
 		return true;
 	}
 
 	/**
 	 * Log ips, or check for other things
-	 * @param UsersInterface $user
-	 *
+	 * @param UserInterface $user
+
 	 * @return bool
 	 */
-	protected function handleInvalidLogin( UsersInterface $user )
+	protected function handleInvalidLogin( UserInterface $user )
     {
 		return false;
 	}

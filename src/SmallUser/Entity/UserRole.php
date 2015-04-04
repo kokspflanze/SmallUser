@@ -2,16 +2,15 @@
 
 namespace SmallUser\Entity;
 
-use BjyAuthorize\Acl\HierarchicalRoleInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * UserRole
  *
  * @ORM\Table(name="user_role", indexes={@ORM\Index(name="fk_users_role_users_role1_idx", columns={"parent_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Repository\UserRole")
  */
-class UserRole implements HierarchicalRoleInterface, UserRoleInterface
+class UserRole implements UserRoleInterface
 {
     /**
      * @var integer
@@ -46,7 +45,7 @@ class UserRole implements HierarchicalRoleInterface, UserRoleInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="SmallUser\Entity\Users", inversedBy="userRole")
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="userRole")
      * @ORM\JoinTable(name="user2role",
      *   joinColumns={
      *     @ORM\JoinColumn(name="user_role_id", referencedColumnName="id")
@@ -56,16 +55,28 @@ class UserRole implements HierarchicalRoleInterface, UserRoleInterface
      *   }
      * )
      */
-    private $usersUsrid;
+    private $user;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->usersUsrid = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    /**
+     * Set id
+     *
+     * @param $id
+     * @return $this
+     */
+    public function setId( $id )
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * Get id
@@ -81,7 +92,6 @@ class UserRole implements HierarchicalRoleInterface, UserRoleInterface
      * Set roleId
      *
      * @param string $roleId
-     *
      * @return UserRole
      */
     public function setRoleId( $roleId )
@@ -105,7 +115,6 @@ class UserRole implements HierarchicalRoleInterface, UserRoleInterface
      * Set isDefault
      *
      * @param boolean $isDefault
-     *
      * @return UserRole
      */
     public function setIsDefault( $isDefault )
@@ -129,7 +138,6 @@ class UserRole implements HierarchicalRoleInterface, UserRoleInterface
      * Set parent
      *
      * @param string $parent
-     *
      * @return UserRole
      */
     public function setParent( $parent )
@@ -150,37 +158,36 @@ class UserRole implements HierarchicalRoleInterface, UserRoleInterface
     }
 
     /**
-     * Add usersUsrid
+     * Add user
      *
-     * @param UsersInterface $user
-     *
+     * @param UserInterface $user
      * @return UserRole
      */
-    public function addUsersUsrid( UsersInterface $user )
+    public function addUser( UserInterface $user )
     {
-        $this->usersUsrid[] = $user;
+        $this->user[] = $user;
 
         return $this;
     }
 
     /**
-     * Remove usersUsrid
+     * Remove user
      *
-     * @param UsersInterface $user
+     * @param UserInterface $user
      */
-    public function removeUsersUsrid( UsersInterface $user )
+    public function removeUser( UserInterface $user )
     {
-        $this->usersUsrid->removeElement( $user );
+        $this->user->removeElement( $user );
     }
 
     /**
-     * Get Users usersUsrid
+     * Get User user
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getUsersUsrid()
+    public function getUser()
     {
-        return $this->usersUsrid;
+        return $this->user;
     }
 
 }

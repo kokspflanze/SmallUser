@@ -27,21 +27,23 @@ class AuthController extends AbstractActionController
             return $this->redirect()->toRoute( $this->getLoggedInRoute() );
         }
 
-        $oForm    = $this->getUserService()->getLoginForm();
-        $oRequest = $this->getRequest();
+        $form    = $this->getUserService()->getLoginForm();
+        $request = $this->getRequest();
 
-        if (!$oRequest->isPost()) {
+        if (!$request->isPost()) {
             $view = new ViewModel( array(
                 'aErrorMessages' => $this->flashmessenger()->getMessagesFromNamespace( self::ErrorNameSpace ),
-                'loginForm'      => $oForm
+                'loginForm'      => $form
             ) );
             $view->setTemplate( 'small-user/login' );
+
             return $view;
         }
 
         if ($this->getUserService()->login( $this->params()->fromPost() )) {
             return $this->redirect()->toRoute( $this->getLoggedInRoute() );
         }
+
         return $this->redirect()->toUrl( $this->url()->fromRoute( 'small-user-auth' ) );
     }
 
@@ -51,6 +53,7 @@ class AuthController extends AbstractActionController
     protected function getLoggedInRoute()
     {
         $configRoute = $this->getUserService()->getConfig()['small-user']['login']['route'];
+
         return $configRoute != false ? $configRoute : self::RouteLoggedIn;
     }
 
@@ -72,6 +75,7 @@ class AuthController extends AbstractActionController
     {
         $view = new ViewModel();
         $view->setTemplate( 'small-user/logout-page' );
+
         return $view;
     }
 

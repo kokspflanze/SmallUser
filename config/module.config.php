@@ -45,10 +45,10 @@ return array(
 	'authenticationadapter' => array(
 		'odm_default' => array(
 			'objectManager' => 'doctrine.documentmanager.odm_default',
-			'identityClass' => 'SmallUser\Entity\Users',
+			'identityClass' => 'SmallUser\Entity\User',
 			'identityProperty' => 'username',
 			'credentialProperty' => 'password',
-			'credentialCallable' => 'SmallUser\Entity\Users::hashPassword'
+			'credentialCallable' => 'SmallUser\Entity\User::hashPassword'
 		),
 	),
 	'doctrine' => array(
@@ -67,7 +67,7 @@ return array(
 	),
 	'small-user' => array(
 		'user_entity' => array(
-			'class' => 'SmallUser\Entity\Users',
+			'class' => 'SmallUser\Entity\User',
 			'username' => 'username'
 		),
 		'login' => array(

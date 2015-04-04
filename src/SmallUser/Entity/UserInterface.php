@@ -2,15 +2,20 @@
 
 namespace SmallUser\Entity;
 
+use BjyAuthorize\Provider\Role\ProviderInterface;
 
-interface UsersInterface
+interface UserInterface extends ProviderInterface
 {
+    /**
+     * @return int
+     */
+    public function getId();
+
 	/**
 	 * Set username
-	 *
+     *
 	 * @param string $username
-	 *
-	 * @return UsersInterface
+	 * @return self
 	 */
 	public function setUsername( $username );
 
@@ -23,11 +28,10 @@ interface UsersInterface
 
 	/**
 	 * Set password
-	 *
+     *
 	 * @param string $password
-	 *
-	 * @return UsersInterface
-	 */
+	 * @return self
+     */
 	public function setPassword( $password );
 
 	/**
@@ -43,12 +47,11 @@ interface UsersInterface
 	public function getRoles();
 
 	/**
-	 * @param UsersInterface $oEntity
-	 * @param       $plaintext
-	 *
+	 * @param self $entity
+	 * @param string $plaintext
 	 * @return bool
 	 */
-	public static function hashPassword( $oEntity, $plaintext );
+	public static function hashPassword( $entity, $plaintext );
 
 
 } 

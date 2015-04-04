@@ -2,31 +2,22 @@
 
 namespace SmallUser\Entity;
 
+use BjyAuthorize\Acl\HierarchicalRoleInterface;
 
-interface UserRoleInterface
+interface UserRoleInterface extends HierarchicalRoleInterface
 {
-
     /**
      * Set roleId
      *
      * @param string $roleId
-     *
      * @return UserRole
      */
     public function setRoleId( $roleId );
 
     /**
-     * Get roleId
-     *
-     * @return string
-     */
-    public function getRoleId();
-
-    /**
      * Set parent
      *
      * @param string $parent
-     *
      * @return UserRole
      */
     public function setParent( $parent );
