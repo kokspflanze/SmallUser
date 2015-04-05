@@ -22,11 +22,15 @@ return array(
 	'service_manager' => array(
 		'invokables' => array(
 			'small_user_service' => 'SmallUser\Service\User',
+            'zfcuser_user_service' => 'SmallUser\Service\User',
 		),
 		'abstract_factories' => array(
 			'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
 			'Zend\Log\LoggerAbstractServiceFactory',
 		),
+        'aliases' => array(
+            'zfcuser_zend_db_adapter' => 'Zend\Db\Adapter\Adapter',
+        ),
 	),
 	'controllers' => array(
 		'invokables' => array(
