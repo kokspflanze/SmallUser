@@ -23,44 +23,29 @@ class User extends InvokableBase
 	 * @param array $data
 	 * @return bool
 	 */
-	public function login( array $data )
+    public function login( array $data )
     {
-		$class = $this->getUserEntityClassName();
+        $class = $this->getUserEntityClassName();
 
-		$form = $this->getLoginForm();
-		$form->setHydrator( new HydratorUser() );
-		$form->bind( new $class );
-		$form->setData( $data);
+        $form = $this->getLoginForm();
+        $form->setHydrator( new HydratorUser() );
+        $form->bind( new $class );
+        $form->setData( $data );
 
-		$this->getFlashMessenger()->setNamespace(self::ErrorNameSpace)->addMessage($this->getFailedLoginMessage());
+        $this->getFlashMessenger()->setNamespace( self::ErrorNameSpace )->addMessage( $this->getFailedLoginMessage() );
 
-		if(!$form->isValid()){
-			return false;
-		}
+        if (!$form->isValid()) {
+            return false;
+        }
 
-		if(!$this->isIpAllowed()){
-			return false;
-		}
+        if (!$this->isIpAllowed()) {
+            return false;
+        }
 
-		$user = $form->getData();
-		$authService = $this->getAuthService();
-		$result = $this->getAuthResult($authService, $user);
-		if($result->isValid()){
-			$user = $result->getIdentity();
-			if($this->isValidLogin($user)){
-				$this->doLogin($user);
-				return true;
-			}else{
-				// Login correct but not active or blocked or smth else
-				$authService->clearIdentity();
-				$authService->getStorage()->clear();
-			}
-		}else{
-			$this->handleInvalidLogin($user);
-		}
+        $user = $form->getData();
 
-		return false;
-	}
+        return $this->handleAuth4UserLogin( $user );
+    }
 
 	/**
 	 * TODO
@@ -201,4 +186,32 @@ class User extends InvokableBase
 
 		return $this->userEntityUserName;
 	}
+
+    /**
+     * @param UserInterface $user
+     * @return bool
+     */
+    protected function handleAuth4UserLogin( UserInterface $user )
+    {
+        $authService = $this->getAuthService();
+        $authResult = $this->getAuthResult( $authService, $user );
+        $result = false;
+
+        if ($authResult->isValid()) {
+            $user = $authResult->getIdentity();
+            if ($this->isValidLogin( $user )) {
+                $this->doLogin( $user );
+
+                $result = true;
+            } else {
+                // Login correct but not active or blocked or smth else
+                $authService->clearIdentity();
+                $authService->getStorage()->clear();
+            }
+        } else {
+            $this->handleInvalidLogin( $user );
+        }
+
+        return $result;
+    }
 }
