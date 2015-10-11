@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * UserRole
  *
  * @ORM\Table(name="user_role", indexes={@ORM\Index(name="fk_users_role_users_role1_idx", columns={"parent_id"})})
- * @ORM\Entity(repositoryClass="Repository\UserRole")
+ * @ORM\Entity(repositoryClass="SmallUser\Repository\UserRole")
  */
 class UserRole implements UserRoleInterface
 {

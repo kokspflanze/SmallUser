@@ -10,7 +10,7 @@ use Zend\Crypt\Password\Bcrypt;
  *
  * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="username_UNIQUE", columns={"username"})})
  * @ORM\MappedSuperclass
- * @ORM\Entity(repositoryClass="Repository\User")
+ * @ORM\Entity(repositoryClass="SmallUser\Repository\User")
  */
 class User implements UserInterface
 {
