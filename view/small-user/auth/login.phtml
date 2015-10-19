@@ -1,7 +1,7 @@
-<?php if($this->aErraErrorMessages): ?>
+<?php if($this->aErrorMessages): ?>
 <div class="alert alert-danger" role="alert">
 	<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	<?php foreach($this->aErraErrorMessages as $sError): ?>
+	<?php foreach($this->aErrorMessages as $sError): ?>
 		<?= $sError ?><br />
 	<?php endforeach ?>
 </div>
@@ -9,6 +9,7 @@
 
 
 <?php
+/** @var \SmallUser\Form\Login $form */
 $form = $this->loginForm;
 $form->prepare();
 $form->setAttribute('method', 'post');
@@ -17,6 +18,14 @@ $form->setAttribute('class', 'form-horizontal');
 
 <?php echo $this->form()->openTag($form) ?>
 <?php foreach ($form as $element): ?>
+	<?php
+	/** @var \Zend\Form\Element $element */
+	if($element->getAttribute('type') == 'hidden'): ?>
+		<?= $this->formInput($element) . $this->formElementErrors($element) ?>
+		<?php
+		continue;
+	endif;
+	?>
 	<div class="form-group">
 		<?php if (!$element instanceof Zend\Form\Element\Button): ?>
 			<label class="col-sm-2 control-label"><?php echo $this->formLabel($element) ?></label>
