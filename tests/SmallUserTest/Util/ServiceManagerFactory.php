@@ -2,8 +2,8 @@
 
 namespace SmallUserTest\Util;
 
-use Zend\ServiceManager\ServiceManager;
 use Zend\Mvc\Service\ServiceManagerConfig;
+use Zend\ServiceManager\ServiceManager;
 
 class ServiceManagerFactory
 {
@@ -29,7 +29,7 @@ class ServiceManagerFactory
     {
         $serviceManager = new ServiceManager(
             new ServiceManagerConfig(
-                isset(static::$config['service_manager']) ? static::$config['service_manager'] : array()
+                isset(static::$config['service_manager']) ? static::$config['service_manager'] : []
             )
         );
         $serviceManager->setAllowOverride(true)

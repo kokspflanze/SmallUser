@@ -64,7 +64,40 @@ class User implements UserInterface
     public function __construct()
     {
         $this->userRole = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->created  = new \DateTime();
+        $this->created = new \DateTime();
+    }
+
+    /**
+     * @param User $entity
+     * @param       $plaintext
+     * @return bool
+     */
+    public static function hashPassword($entity, $plaintext)
+    {
+        $bCrypt = new Bcrypt();
+        return $bCrypt->verify($plaintext, $entity->getPassword());
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set password
+     * @param string $password
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
     }
 
     /**
@@ -73,7 +106,7 @@ class User implements UserInterface
      * @param $id
      * @return $this
      */
-    public function setId( $id )
+    public function setId($id)
     {
         $this->usrId = $id;
 
@@ -91,20 +124,6 @@ class User implements UserInterface
     }
 
     /**
-     * Set username
-
-     * @param string $username
-
-     * @return User
-     */
-    public function setUsername( $username )
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
      * Get username
      *
      * @return string
@@ -115,39 +134,13 @@ class User implements UserInterface
     }
 
     /**
-     * Set password
-
-     * @param string $password
-
+     * Set username
+     * @param string $username
      * @return User
      */
-    public function setPassword( $password )
+    public function setUsername($username)
     {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Set email
-
-     * @param string $email
-
-     * @return User
-     */
-    public function setEmail( $email )
-    {
-        $this->email = $email;
+        $this->username = $username;
 
         return $this;
     }
@@ -163,15 +156,13 @@ class User implements UserInterface
     }
 
     /**
-     * Set created
-
-     * @param \DateTime $created
-
+     * Set email
+     * @param string $email
      * @return User
      */
-    public function setCreated( $created )
+    public function setEmail($email)
     {
-        $this->created = $created;
+        $this->email = $email;
 
         return $this;
     }
@@ -187,13 +178,23 @@ class User implements UserInterface
     }
 
     /**
-     * Add userRole
-
-     * @param UserRole $role
-
+     * Set created
+     * @param \DateTime $created
      * @return User
      */
-    public function addUserRole( $role )
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Add userRole
+     * @param UserRole $role
+     * @return User
+     */
+    public function addUserRole($role)
     {
         $this->userRole[] = $role;
 
@@ -205,9 +206,9 @@ class User implements UserInterface
      *
      * @param UserRole $role
      */
-    public function removeUserRole( $role )
+    public function removeUserRole($role)
     {
-        $this->userRole->removeElement( $role );
+        $this->userRole->removeElement($role);
     }
 
     /**
@@ -226,18 +227,6 @@ class User implements UserInterface
     public function getRoles()
     {
         return $this->userRole->getValues();
-    }
-
-    /**
-     * @param User $entity
-     * @param       $plaintext
-
-     * @return bool
-     */
-    public static function hashPassword( $entity, $plaintext )
-    {
-        $bCrypt = new Bcrypt();
-        return $bCrypt->verify( $plaintext, $entity->getPassword() );
     }
 
 }

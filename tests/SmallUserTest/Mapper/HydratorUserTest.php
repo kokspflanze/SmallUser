@@ -32,7 +32,7 @@ class HydratorUserTest extends \PHPUnit_Framework_TestCase
     {
         $entity = new User();
         $hydrator = new HydratorUser();
-        $data = $hydrator->hydrate(array(), $entity);
+        $data = $hydrator->hydrate([], $entity);
 
         $this->assertEquals($entity, $data);
     }
@@ -44,6 +44,6 @@ class HydratorUserTest extends \PHPUnit_Framework_TestCase
     {
         $entity = new \stdClass();
         $hydrator = new HydratorUser();
-        $hydrator->hydrate(array(), $entity);
+        $hydrator->hydrate([], $entity);
     }
 }

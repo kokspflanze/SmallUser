@@ -7,32 +7,32 @@ use SmallUser\Mapper\HydratorUser;
 
 class User extends InvokableBase
 {
-	const ErrorNameSpace = 'small-user-auth';
-	/** @var \Zend\Authentication\AuthenticationService */
-	protected $authService;
-	/** @var \SmallUser\Form\Login */
-	protected $loginForm;
-	/** @var string */
-	protected $failedLoginMessage = 'Authentication failed. Please try again.';
-	/** @var string */
-	protected $userEntityClassName;
-	/** @var string */
-	protected $userEntityUserName;
+    const ErrorNameSpace = 'small-user-auth';
+    /** @var \Zend\Authentication\AuthenticationService */
+    protected $authService;
+    /** @var \SmallUser\Form\Login */
+    protected $loginForm;
+    /** @var string */
+    protected $failedLoginMessage = 'Authentication failed. Please try again.';
+    /** @var string */
+    protected $userEntityClassName;
+    /** @var string */
+    protected $userEntityUserName;
 
-	/**
-	 * @param array $data
-	 * @return bool
-	 */
-    public function login( array $data )
+    /**
+     * @param array $data
+     * @return bool
+     */
+    public function login(array $data)
     {
         $class = $this->getUserEntityClassName();
 
         $form = $this->getLoginForm();
-        $form->setHydrator( new HydratorUser() );
-        $form->bind( new $class );
-        $form->setData( $data );
+        $form->setHydrator(new HydratorUser());
+        $form->bind(new $class);
+        $form->setData($data);
 
-        $this->getFlashMessenger()->setNamespace( self::ErrorNameSpace )->addMessage( $this->getFailedLoginMessage() );
+        $this->getFlashMessenger()->setNamespace(self::ErrorNameSpace)->addMessage($this->getFailedLoginMessage());
 
         if (!$form->isValid()) {
             return false;
@@ -42,165 +42,163 @@ class User extends InvokableBase
             return false;
         }
 
+        /** @var UserInterface $user */
         $user = $form->getData();
 
-        return $this->handleAuth4UserLogin( $user );
+        return $this->handleAuth4UserLogin($user);
     }
 
-	/**
-	 * TODO
-
-	 * @param array $data
-
-	 * @return UserInterface|bool
-	 */
-	public function register( array $data )
+    /**
+     * TODO
+     * @param array $data
+     * @return UserInterface|bool
+     */
+    public function register(array $data)
     {
 
-	}
+    }
 
-	/**
-	 * TODO
-	 *
-	 * @param array $data
-	 */
-	public function lostPw( array $data )
+    /**
+     * TODO
+     *
+     * @param array $data
+     */
+    public function lostPw(array $data)
     {
 
-	}
+    }
 
-	/**
-	 * @return \SmallUser\Form\Login
-	 */
-	public function getLoginForm()
+    /**
+     * @return \SmallUser\Form\Login
+     */
+    public function getLoginForm()
     {
-		if (! $this->loginForm) {
-			$this->loginForm = $this->getServiceManager()->get('small_user_login_form');
-		}
+        if (!$this->loginForm) {
+            $this->loginForm = $this->getServiceManager()->get('small_user_login_form');
+        }
 
-		return $this->loginForm;
-	}
+        return $this->loginForm;
+    }
 
-	/**
-	 * @return \Zend\Authentication\AuthenticationService
-	 */
-	public function getAuthService()
+    /**
+     * @return \Zend\Authentication\AuthenticationService
+     */
+    public function getAuthService()
     {
-		if (! $this->authService) {
-			$this->authService = $this->getServiceManager()->get('small_user_auth_service');
-		}
+        if (!$this->authService) {
+            $this->authService = $this->getServiceManager()->get('small_user_auth_service');
+        }
 
-		return $this->authService;
-	}
+        return $this->authService;
+    }
 
-	/**
-	 * @param UserInterface $user
-	 */
-	protected function doLogin(UserInterface $user)
+    /**
+     * @param UserInterface $user
+     */
+    protected function doLogin(UserInterface $user)
     {
-		$this->getFlashMessenger()->clearCurrentMessagesFromNamespace(self::ErrorNameSpace);
-	}
+        $this->getFlashMessenger()->clearCurrentMessagesFromNamespace(self::ErrorNameSpace);
+    }
 
-	/**
-	 * @param \Zend\Authentication\AuthenticationService $authService
-	 * @param UserInterface $user
-	 * @return \Zend\Authentication\Result
-	 */
-	protected function getAuthResult(\Zend\Authentication\AuthenticationService $authService, UserInterface $user)
+    /**
+     * @param \Zend\Authentication\AuthenticationService $authService
+     * @param UserInterface $user
+     * @return \Zend\Authentication\Result
+     */
+    protected function getAuthResult(\Zend\Authentication\AuthenticationService $authService, UserInterface $user)
     {
-		/** @var \DoctrineModule\Authentication\Adapter\ObjectRepository $adapter */
-		$adapter = $authService->getAdapter();
-		$adapter->setIdentity($user->getUsername());
-		$adapter->setCredential($user->getPassword());
+        /** @var \DoctrineModule\Authentication\Adapter\ObjectRepository $adapter */
+        $adapter = $authService->getAdapter();
+        $adapter->setIdentity($user->getUsername());
+        $adapter->setCredential($user->getPassword());
 
-		return $authService->authenticate($adapter);
-	}
+        return $authService->authenticate($adapter);
+    }
 
-	/**
-	 * @param $message
-	 */
-	protected function setFailedLoginMessage( $message )
+    /**
+     * @param $message
+     */
+    protected function setFailedLoginMessage($message)
     {
-		$this->failedLoginMessage = $message;
-	}
+        $this->failedLoginMessage = $message;
+    }
 
-	/**
-	 * @return string
-	 */
-	protected function getFailedLoginMessage()
+    /**
+     * @return string
+     */
+    protected function getFailedLoginMessage()
     {
-		return $this->failedLoginMessage;
-	}
+        return $this->failedLoginMessage;
+    }
 
-	/**
-	 * @TODO better fix
-	 * @param UserInterface $user
-	 * @return bool
-	 */
-	protected function isValidLogin( UserInterface $user )
+    /**
+     * @TODO better fix
+     * @param UserInterface $user
+     * @return bool
+     */
+    protected function isValidLogin(UserInterface $user)
     {
-		$user->getRoles();
+        $user->getRoles();
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * Log ips, or check for other things
-	 * @param UserInterface $user
-
-	 * @return bool
-	 */
-	protected function handleInvalidLogin( UserInterface $user )
+    /**
+     * Log ips, or check for other things
+     * @param UserInterface $user
+     * @return bool
+     */
+    protected function handleInvalidLogin(UserInterface $user)
     {
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * @return bool
-	 */
-	protected function isIpAllowed()
+    /**
+     * @return bool
+     */
+    protected function isIpAllowed()
     {
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * @return string
-	 */
-	protected function getUserEntityClassName()
+    /**
+     * @return string
+     */
+    protected function getUserEntityClassName()
     {
-		if (! $this->userEntityClassName) {
-			$this->userEntityClassName = $this->getConfig()['small-user']['user_entity']['class'];
-		}
+        if (!$this->userEntityClassName) {
+            $this->userEntityClassName = $this->getConfig()['small-user']['user_entity']['class'];
+        }
 
-		return $this->userEntityClassName;
-	}
+        return $this->userEntityClassName;
+    }
 
-	/**
-	 * @return string
-	 */
-	protected function getUserEntityUserName()
+    /**
+     * @return string
+     */
+    protected function getUserEntityUserName()
     {
-		if (! $this->userEntityUserName) {
-			$this->userEntityUserName = $this->getConfig()['small-user']['user_entity']['username'];
-		}
+        if (!$this->userEntityUserName) {
+            $this->userEntityUserName = $this->getConfig()['small-user']['user_entity']['username'];
+        }
 
-		return $this->userEntityUserName;
-	}
+        return $this->userEntityUserName;
+    }
 
     /**
      * @param UserInterface $user
      * @return bool
      */
-    protected function handleAuth4UserLogin( UserInterface $user )
+    protected function handleAuth4UserLogin(UserInterface $user)
     {
         $authService = $this->getAuthService();
-        $authResult = $this->getAuthResult( $authService, $user );
+        $authResult = $this->getAuthResult($authService, $user);
         $result = false;
 
         if ($authResult->isValid()) {
             $user = $authResult->getIdentity();
-            if ($this->isValidLogin( $user )) {
-                $this->doLogin( $user );
+            if ($this->isValidLogin($user)) {
+                $this->doLogin($user);
 
                 $result = true;
             } else {
@@ -209,7 +207,7 @@ class User extends InvokableBase
                 $authService->getStorage()->clear();
             }
         } else {
-            $this->handleInvalidLogin( $user );
+            $this->handleInvalidLogin($user);
         }
 
         return $result;

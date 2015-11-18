@@ -2,7 +2,6 @@
 
 namespace SmallUser\Form;
 
-use Zend\Form\Form;
 use Zend\Form\Element;
 use ZfcBase\Form\ProvidesEventsForm;
 
@@ -15,45 +14,45 @@ class Login extends ProvidesEventsForm
     {
         parent::__construct();
 
-        $this->add(array(
+        $this->add([
             'type' => 'Zend\Form\Element\Csrf',
             'name' => 'eugzhoe45gh3o49ugfgj2wrtu7gz50'
-        ));
+        ]);
 
-        $this->add(array(
+        $this->add([
             'name' => 'username',
-            'options' => array(
+            'options' => [
                 'label' => 'Username',
-            ),
-            'attributes' => array(
+            ],
+            'attributes' => [
                 'placeholder' => 'Username',
                 'class' => 'form-control',
                 'type' => 'text'
-            ),
-        ));
+            ],
+        ]);
 
-        $this->add(array(
+        $this->add([
             'name' => 'password',
-            'options' => array(
+            'options' => [
                 'label' => 'Password',
-            ),
-            'attributes' => array(
+            ],
+            'attributes' => [
                 'placeholder' => 'Password',
                 'class' => 'form-control',
                 'type' => 'password'
-            ),
-        ));
+            ],
+        ]);
 
         $submitElement = new Element\Button('submit');
         $submitElement
             ->setLabel('Sign In')
-            ->setAttributes(array(
+            ->setAttributes([
                 'class' => 'btn btn-default',
-                'type'  => 'submit',
-            ));
+                'type' => 'submit',
+            ]);
 
-        $this->add($submitElement, array(
+        $this->add($submitElement, [
             'priority' => -100,
-        ));
+        ]);
     }
 }

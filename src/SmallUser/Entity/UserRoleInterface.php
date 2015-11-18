@@ -12,7 +12,7 @@ interface UserRoleInterface extends HierarchicalRoleInterface
      * @param string $roleId
      * @return UserRole
      */
-    public function setRoleId( $roleId );
+    public function setRoleId($roleId);
 
     /**
      * Set parent
@@ -20,7 +20,7 @@ interface UserRoleInterface extends HierarchicalRoleInterface
      * @param string $parent
      * @return UserRole
      */
-    public function setParent( $parent );
+    public function setParent($parent);
 
     /**
      * Get parent

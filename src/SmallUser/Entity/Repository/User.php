@@ -9,12 +9,12 @@ use SmallUser\Entity\UserInterface;
 class User extends EntityRepository
 {
     /**
-     * @param $userId
+     * @param $id
      *
      * @return null|UserInterface
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function getUser4Id( $id )
+    public function getUser4Id($id)
     {
         $query = $this->createQueryBuilder('p')
             ->select('p')

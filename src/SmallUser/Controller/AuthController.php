@@ -24,27 +24,41 @@ class AuthController extends AbstractActionController
     {
         //if already login, redirect to success page
         if ($this->getUserService()->getAuthService()->hasIdentity()) {
-            return $this->redirect()->toRoute( $this->getLoggedInRoute() );
+            return $this->redirect()->toRoute($this->getLoggedInRoute());
         }
 
-        $form    = $this->getUserService()->getLoginForm();
+        $form = $this->getUserService()->getLoginForm();
+
+        /** @var \Zend\Http\Request $request */
         $request = $this->getRequest();
 
         if (!$request->isPost()) {
-            $view = new ViewModel( array(
-                'aErrorMessages' => $this->flashmessenger()->getMessagesFromNamespace( self::ErrorNameSpace ),
-                'loginForm'      => $form
-            ) );
-            $view->setTemplate( 'small-user/login' );
+            $view = new ViewModel([
+                'aErrorMessages' => $this->flashmessenger()->getMessagesFromNamespace(self::ErrorNameSpace),
+                'loginForm' => $form
+            ]);
+            $view->setTemplate('small-user/login');
 
             return $view;
         }
 
-        if ($this->getUserService()->login( $this->params()->fromPost() )) {
-            return $this->redirect()->toRoute( $this->getLoggedInRoute() );
+        if ($this->getUserService()->login($this->params()->fromPost())) {
+            return $this->redirect()->toRoute($this->getLoggedInRoute());
         }
 
-        return $this->redirect()->toUrl( $this->url()->fromRoute( 'small-user-auth' ) );
+        return $this->redirect()->toUrl($this->url()->fromRoute('small-user-auth'));
+    }
+
+    /**
+     * @return \SmallUser\Service\User
+     */
+    protected function getUserService()
+    {
+        if (!$this->userService) {
+            $this->userService = $this->getServiceLocator()->get('small_user_service');
+        }
+
+        return $this->userService;
     }
 
     /**
@@ -65,7 +79,7 @@ class AuthController extends AbstractActionController
         $this->getUserService()->getAuthService()->getStorage()->clear();
         $this->getUserService()->getAuthService()->clearIdentity();
 
-        return $this->redirect()->toRoute( 'small-user-auth', array( 'action' => 'logout-page' ) );
+        return $this->redirect()->toRoute('small-user-auth', ['action' => 'logout-page']);
     }
 
     /**
@@ -74,21 +88,9 @@ class AuthController extends AbstractActionController
     public function logoutPageAction()
     {
         $view = new ViewModel();
-        $view->setTemplate( 'small-user/logout-page' );
+        $view->setTemplate('small-user/logout-page');
 
         return $view;
-    }
-
-    /**
-     * @return \SmallUser\Service\User
-     */
-    protected function getUserService()
-    {
-        if (!$this->userService) {
-            $this->userService = $this->getServiceLocator()->get( 'small_user_service' );
-        }
-
-        return $this->userService;
     }
 
     /**
@@ -97,7 +99,7 @@ class AuthController extends AbstractActionController
     protected function getEntityManager()
     {
         if (!$this->entityManager) {
-            $this->entityManager = $this->getServiceLocator()->get( 'Doctrine\ORM\EntityManager' );
+            $this->entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
         }
 
         return $this->entityManager;

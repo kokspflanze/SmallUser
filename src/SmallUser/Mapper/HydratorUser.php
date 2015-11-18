@@ -2,43 +2,43 @@
 
 namespace SmallUser\Mapper;
 
-use Zend\Stdlib\Hydrator\ClassMethods;
 use SmallUser\Entity\UserInterface as User;
+use Zend\Stdlib\Hydrator\ClassMethods;
 
 class HydratorUser extends ClassMethods
 {
-	/**
-	 * Extract values from an object
-	 *
-	 * @param  object $object
-	 * @return array
+    /**
+     * Extract values from an object
+     *
+     * @param  object $object
+     * @return array
      * @throws \Exception
-	 */
-	public function extract($object)
+     */
+    public function extract($object)
     {
-		if (!$object instanceof User) {
-			throw new \Exception('$object must be an instance of User');
-		}
-		/* @var $object User */
-		$data = parent::extract($object);
+        if (!$object instanceof User) {
+            throw new \Exception('$object must be an instance of User');
+        }
+        /* @var $object User */
+        $data = parent::extract($object);
 
-		return $data;
-	}
+        return $data;
+    }
 
-	/**
-	 * Hydrate $object with the provided $data.
-	 *
-	 * @param  array $data
-	 * @param  object $object
-	 * @return User
-	 * @throws \Exception
-	 */
-	public function hydrate(array $data, $object)
+    /**
+     * Hydrate $object with the provided $data.
+     *
+     * @param  array $data
+     * @param  object $object
+     * @return User
+     * @throws \Exception
+     */
+    public function hydrate(array $data, $object)
     {
-		if (!$object instanceof User) {
-			throw new \Exception('$object must be an instance of User');
-		}
+        if (!$object instanceof User) {
+            throw new \Exception('$object must be an instance of User');
+        }
 
-		return parent::hydrate($data, $object);
-	}
+        return parent::hydrate($data, $object);
+    }
 }

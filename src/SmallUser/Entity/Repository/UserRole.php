@@ -11,8 +11,8 @@ class UserRole extends EntityRepository
      * @param $name
      * @return null|\SmallUser\Entity\UserRole
      */
-    public function getRole4Name( $name )
+    public function getRole4Name($name)
     {
-        return $this->findOneBy( ['roleId' => $name] );
+        return $this->findOneBy(['roleId' => $name]);
     }
 }

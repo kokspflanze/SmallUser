@@ -14,34 +14,34 @@ use Zend\ServiceManager\ServiceManagerAwareInterface;
 
 class InvokableBase implements ServiceManagerAwareInterface
 {
-	/** @var ServiceManager */
-	protected $serviceManager;
-	/** @var \Doctrine\ORM\EntityManager */
-	protected $entityManager;
-	/** @var \Zend\Mvc\Controller\Plugin\FlashMessenger */
-	protected $flashMessenger;
-	/** @var \Zend\Mvc\Controller\PluginManager */
-	protected $controllerPluginManager;
+    /** @var ServiceManager */
+    protected $serviceManager;
+    /** @var \Doctrine\ORM\EntityManager */
+    protected $entityManager;
+    /** @var \Zend\Mvc\Controller\Plugin\FlashMessenger */
+    protected $flashMessenger;
+    /** @var \Zend\Mvc\Controller\PluginManager */
+    protected $controllerPluginManager;
 
     /**
      * @return ServiceManager
      */
-	public function getServiceManager()
+    public function getServiceManager()
     {
-		return $this->serviceManager;
-	}
+        return $this->serviceManager;
+    }
 
-	/**
-	 * @param ServiceManager $serviceManager
-	 *
-	 * @return $this
-	 */
-	public function setServiceManager( ServiceManager $serviceManager )
+    /**
+     * @param ServiceManager $serviceManager
+     *
+     * @return $this
+     */
+    public function setServiceManager(ServiceManager $serviceManager)
     {
-		$this->serviceManager = $serviceManager;
+        $this->serviceManager = $serviceManager;
 
-		return $this;
-	}
+        return $this;
+    }
 
     /**
      * @return \Doctrine\ORM\EntityManager
@@ -49,7 +49,7 @@ class InvokableBase implements ServiceManagerAwareInterface
     public function getEntityManager()
     {
         if (!$this->entityManager) {
-            $this->entityManager = $this->getServiceManager()->get( 'Doctrine\ORM\EntityManager' );
+            $this->entityManager = $this->getServiceManager()->get('Doctrine\ORM\EntityManager');
         }
 
         return $this->entityManager;
@@ -60,7 +60,7 @@ class InvokableBase implements ServiceManagerAwareInterface
      */
     public function getConfig()
     {
-        return $this->getServiceManager()->get( 'Config' );
+        return $this->getServiceManager()->get('Config');
     }
 
     /**
@@ -69,7 +69,7 @@ class InvokableBase implements ServiceManagerAwareInterface
     protected function getControllerPluginManager()
     {
         if (!$this->controllerPluginManager) {
-            $this->controllerPluginManager = $this->getServiceManager()->get( 'ControllerPluginManager' );
+            $this->controllerPluginManager = $this->getServiceManager()->get('ControllerPluginManager');
         }
 
         return $this->controllerPluginManager;
@@ -81,7 +81,7 @@ class InvokableBase implements ServiceManagerAwareInterface
     protected function getFlashMessenger()
     {
         if (!$this->flashMessenger) {
-            $this->flashMessenger = $this->getControllerPluginManager()->get( 'flashMessenger' );
+            $this->flashMessenger = $this->getControllerPluginManager()->get('flashMessenger');
         }
 
         return $this->flashMessenger;

@@ -66,19 +66,6 @@ class UserRole implements UserRoleInterface
     }
 
     /**
-     * Set id
-     *
-     * @param $id
-     * @return $this
-     */
-    public function setId( $id )
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * Get id
      *
      * @return integer
@@ -89,14 +76,14 @@ class UserRole implements UserRoleInterface
     }
 
     /**
-     * Set roleId
+     * Set id
      *
-     * @param string $roleId
-     * @return UserRole
+     * @param $id
+     * @return $this
      */
-    public function setRoleId( $roleId )
+    public function setId($id)
     {
-        $this->roleId = $roleId;
+        $this->id = $id;
 
         return $this;
     }
@@ -112,14 +99,14 @@ class UserRole implements UserRoleInterface
     }
 
     /**
-     * Set isDefault
+     * Set roleId
      *
-     * @param boolean $isDefault
+     * @param string $roleId
      * @return UserRole
      */
-    public function setIsDefault( $isDefault )
+    public function setRoleId($roleId)
     {
-        $this->isDefault = $isDefault;
+        $this->roleId = $roleId;
 
         return $this;
     }
@@ -135,14 +122,14 @@ class UserRole implements UserRoleInterface
     }
 
     /**
-     * Set parent
+     * Set isDefault
      *
-     * @param string $parent
+     * @param boolean $isDefault
      * @return UserRole
      */
-    public function setParent( $parent )
+    public function setIsDefault($isDefault)
     {
-        $this->parent = $parent;
+        $this->isDefault = $isDefault;
 
         return $this;
     }
@@ -158,12 +145,25 @@ class UserRole implements UserRoleInterface
     }
 
     /**
+     * Set parent
+     *
+     * @param string $parent
+     * @return UserRole
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
      * Add user
      *
      * @param UserInterface $user
      * @return UserRole
      */
-    public function addUser( UserInterface $user )
+    public function addUser(UserInterface $user)
     {
         $this->user[] = $user;
 
@@ -175,9 +175,9 @@ class UserRole implements UserRoleInterface
      *
      * @param UserInterface $user
      */
-    public function removeUser( UserInterface $user )
+    public function removeUser(UserInterface $user)
     {
-        $this->user->removeElement( $user );
+        $this->user->removeElement($user);
     }
 
     /**
