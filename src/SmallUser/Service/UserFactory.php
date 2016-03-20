@@ -9,7 +9,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class UserFactory implements FactoryInterface
 {
-    protected $className = 'User';
+    protected $className = User::class;
 
     /**
      * @param ServiceLocatorInterface $serviceLocator
