@@ -1,5 +1,9 @@
 <?php
 
+use SmallUser\Controller;
+use SmallUser\Service;
+use SmallUser\Entity;
+
 return [
     'router' => [
         'routes' => [
@@ -20,21 +24,25 @@ return [
         ],
     ],
     'service_manager' => [
-        'invokables' => [
-            'small_user_service' => 'SmallUser\Service\User',
-            'zfcuser_user_service' => 'SmallUser\Service\User',
-        ],
         'abstract_factories' => [
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
             'Zend\Log\LoggerAbstractServiceFactory',
         ],
         'aliases' => [
-            'zfcuser_zend_db_adapter' => 'Zend\Db\Adapter\Adapter',
+            'zfcuser_zend_db_adapter' => Zend\Db\Adapter\Adapter::class,
+            'small_user_service' => Service\User::class,
+            'zfcuser_user_service' => Service\User::class,
+        ],
+        'factories' => [
+            Service\User::class => Service\UserFactory::class
         ],
     ],
     'controllers' => [
-        'invokables' => [
-            'SmallUser\Controller\Auth' => 'SmallUser\Controller\AuthController',
+        'aliases' => [
+            'SmallUser\Controller\Auth' => Controller\AuthController::class,
+        ],
+        'factories' => [
+            Controller\AuthController::class => Controller\AuthFactory::class
         ],
     ],
     'view_manager' => [
@@ -43,13 +51,13 @@ return [
             'small-user/logout-page' => __DIR__ . '/../view/small-user/auth/logout-page.phtml',
         ],
         'template_path_stack' => [
-            __DIR__ . '/../view',
+            'SmallUser' => __DIR__ . '/../view',
         ],
     ],
     'authenticationadapter' => [
         'odm_default' => [
             'objectManager' => 'doctrine.documentmanager.odm_default',
-            'identityClass' => 'SmallUser\Entity\User',
+            'identityClass' => Entity\User::class,
             'identityProperty' => 'username',
             'credentialProperty' => 'password',
             'credentialCallable' => 'SmallUser\Entity\User::hashPassword'
@@ -58,7 +66,7 @@ return [
     'doctrine' => [
         'driver' => [
             'application_entities' => [
-                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'class' => Doctrine\ORM\Mapping\Driver\AnnotationDriver::class,
                 'cache' => 'array',
                 'paths' => [__DIR__ . '/../src/SmallUser/Entity']
             ],
@@ -71,7 +79,7 @@ return [
     ],
     'small-user' => [
         'user_entity' => [
-            'class' => 'SmallUser\Entity\User',
+            'class' => Entity\User::class,
             'username' => 'username'
         ],
         'login' => [

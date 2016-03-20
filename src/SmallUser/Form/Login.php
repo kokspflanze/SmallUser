@@ -8,7 +8,7 @@ use ZfcBase\Form\ProvidesEventsForm;
 class Login extends ProvidesEventsForm
 {
     /**
-     *
+     * Login constructor.
      */
     public function __construct()
     {

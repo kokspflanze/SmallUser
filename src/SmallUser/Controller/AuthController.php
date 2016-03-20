@@ -2,20 +2,26 @@
 
 namespace SmallUser\Controller;
 
+use SmallUser\Service\User;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 class AuthController extends AbstractActionController
 {
-    const ErrorNameSpace = 'small-user-auth';
-    const RouteLoggedIn = 'home';
+    const ERROR_NAME_SPACE = 'small-user-auth';
+    const ROUTE_LOGGED_IN = 'home';
+
+    /** @var  User */
     protected $userService;
-    protected $authService;
-    protected $loginForm;
+
     /**
-     * @var \Doctrine\ORM\EntityManager
+     * AuthController constructor.
+     * @param User $userService
      */
-    protected $entityManager;
+    public function __construct(User $userService)
+    {
+        $this->userService = $userService;
+    }
 
     /**
      * @return array|\Zend\Http\Response
@@ -34,7 +40,7 @@ class AuthController extends AbstractActionController
 
         if (!$request->isPost()) {
             $view = new ViewModel([
-                'aErrorMessages' => $this->flashmessenger()->getMessagesFromNamespace(self::ErrorNameSpace),
+                'aErrorMessages' => $this->flashMessenger()->getMessagesFromNamespace($this::ERROR_NAME_SPACE),
                 'loginForm' => $form
             ]);
             $view->setTemplate('small-user/login');
@@ -50,25 +56,13 @@ class AuthController extends AbstractActionController
     }
 
     /**
-     * @return \SmallUser\Service\User
-     */
-    protected function getUserService()
-    {
-        if (!$this->userService) {
-            $this->userService = $this->getServiceLocator()->get('small_user_service');
-        }
-
-        return $this->userService;
-    }
-
-    /**
      * @return string
      */
     protected function getLoggedInRoute()
     {
-        $configRoute = $this->getUserService()->getConfig()['small-user']['login']['route'];
+        $configRoute = $this->getUserService()->getConfig()['login']['route'];
 
-        return $configRoute != false ? $configRoute : self::RouteLoggedIn;
+        return $configRoute != false ? $configRoute : $this::ROUTE_LOGGED_IN;
     }
 
     /**
@@ -94,14 +88,10 @@ class AuthController extends AbstractActionController
     }
 
     /**
-     * @return \Doctrine\ORM\EntityManager
+     * @return \SmallUser\Service\User
      */
-    protected function getEntityManager()
+    protected function getUserService()
     {
-        if (!$this->entityManager) {
-            $this->entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-        }
-
-        return $this->entityManager;
+        return $this->userService;
     }
 } 

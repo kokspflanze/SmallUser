@@ -24,7 +24,6 @@
   ],
   "require": {
     "php": ">=5.5",
-    "zendframework/zend-modulemanager": "~2.5",
     "zendframework/zend-servicemanager": "~2.5",
     "zendframework/zend-mvc": "~2.5",
     "zendframework/zend-loader": "~2.5",
@@ -34,6 +33,8 @@
     "zendframework/zend-log": "~2.5",
     "zendframework/zend-i18n": "~2.5",
     "zendframework/zend-crypt": "~2.5",
+    "zendframework/zend-stdlib": "~2.5|~3",
+    "zendframework/zend-hydrator": "~1.1|~2.1",
     "bjyoungblood/bjy-authorize": "1.*",
     "doctrine/doctrine-orm-module": "0.*",
     "zf-commons/zfc-base": "0.*"

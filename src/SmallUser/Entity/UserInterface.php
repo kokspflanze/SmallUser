@@ -3,6 +3,7 @@
 namespace SmallUser\Entity;
 
 use BjyAuthorize\Provider\Role\ProviderInterface;
+use Zend\Permissions\Acl\Role\RoleInterface;
 
 interface UserInterface extends ProviderInterface
 {
@@ -49,7 +50,7 @@ interface UserInterface extends ProviderInterface
     public function getPassword();
 
     /**
-     * @return \Zend\Permissions\Acl\Role\RoleInterface[]
+     * @return RoleInterface[]
      */
     public function getRoles();
 

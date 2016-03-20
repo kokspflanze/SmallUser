@@ -3,21 +3,47 @@
 namespace SmallUser\Service;
 
 use SmallUser\Entity\UserInterface;
+use SmallUser\Form\Login;
 use SmallUser\Mapper\HydratorUser;
+use Zend\Authentication\AuthenticationService;
+use Zend\Mvc\Controller\Plugin\FlashMessenger;
+use Zend\Mvc\Controller\PluginManager;
 
-class User extends InvokableBase
+class User
 {
-    const ErrorNameSpace = 'small-user-auth';
-    /** @var \Zend\Authentication\AuthenticationService */
-    protected $authService;
-    /** @var \SmallUser\Form\Login */
-    protected $loginForm;
+    const ERROR_NAME_SPACE = 'small-user-auth';
     /** @var string */
     protected $failedLoginMessage = 'Authentication failed. Please try again.';
-    /** @var string */
-    protected $userEntityClassName;
-    /** @var string */
-    protected $userEntityUserName;
+    /** @var FlashMessenger */
+    protected $flashMessenger;
+
+    /** @var AuthenticationService */
+    protected $authService;
+    /** @var Login */
+    protected $loginForm;
+    /** @var array */
+    protected $config;
+    /** @var PluginManager */
+    protected $controllerPluginManager;
+
+    /**
+     * User constructor.
+     * @param AuthenticationService $authService
+     * @param Login $loginForm
+     * @param array $config
+     * @param PluginManager $controllerPluginManager
+     */
+    public function __construct(
+        AuthenticationService $authService,
+        Login $loginForm,
+        array $config,
+        PluginManager $controllerPluginManager
+    ) {
+        $this->authService = $authService;
+        $this->loginForm = $loginForm;
+        $this->config = $config;
+        $this->controllerPluginManager = $controllerPluginManager;
+    }
 
     /**
      * @param array $data
@@ -32,7 +58,7 @@ class User extends InvokableBase
         $form->bind(new $class);
         $form->setData($data);
 
-        $this->getFlashMessenger()->setNamespace(self::ErrorNameSpace)->addMessage($this->getFailedLoginMessage());
+        $this->getFlashMessenger()->setNamespace($this::ERROR_NAME_SPACE)->addMessage($this->getFailedLoginMessage());
 
         if (!$form->isValid()) {
             return false;
@@ -69,26 +95,18 @@ class User extends InvokableBase
     }
 
     /**
-     * @return \SmallUser\Form\Login
+     * @return Login
      */
     public function getLoginForm()
     {
-        if (!$this->loginForm) {
-            $this->loginForm = $this->getServiceManager()->get('small_user_login_form');
-        }
-
         return $this->loginForm;
     }
 
     /**
-     * @return \Zend\Authentication\AuthenticationService
+     * @return AuthenticationService
      */
     public function getAuthService()
     {
-        if (!$this->authService) {
-            $this->authService = $this->getServiceManager()->get('small_user_auth_service');
-        }
-
         return $this->authService;
     }
 
@@ -97,15 +115,15 @@ class User extends InvokableBase
      */
     protected function doLogin(UserInterface $user)
     {
-        $this->getFlashMessenger()->clearCurrentMessagesFromNamespace(self::ErrorNameSpace);
+        $this->getFlashMessenger()->clearCurrentMessagesFromNamespace($this::ERROR_NAME_SPACE);
     }
 
     /**
-     * @param \Zend\Authentication\AuthenticationService $authService
+     * @param AuthenticationService $authService
      * @param UserInterface $user
      * @return \Zend\Authentication\Result
      */
-    protected function getAuthResult(\Zend\Authentication\AuthenticationService $authService, UserInterface $user)
+    protected function getAuthResult(AuthenticationService $authService, UserInterface $user)
     {
         /** @var \DoctrineModule\Authentication\Adapter\ObjectRepository $adapter */
         $adapter = $authService->getAdapter();
@@ -166,11 +184,7 @@ class User extends InvokableBase
      */
     protected function getUserEntityClassName()
     {
-        if (!$this->userEntityClassName) {
-            $this->userEntityClassName = $this->getConfig()['small-user']['user_entity']['class'];
-        }
-
-        return $this->userEntityClassName;
+        return $this->config['user_entity']['class'];
     }
 
     /**
@@ -178,11 +192,7 @@ class User extends InvokableBase
      */
     protected function getUserEntityUserName()
     {
-        if (!$this->userEntityUserName) {
-            $this->userEntityUserName = $this->getConfig()['small-user']['user_entity']['username'];
-        }
-
-        return $this->userEntityUserName;
+        return $this->config['user_entity']['username'];
     }
 
     /**
@@ -211,5 +221,33 @@ class User extends InvokableBase
         }
 
         return $result;
+    }
+
+    /**
+     * @return FlashMessenger
+     */
+    protected function getFlashMessenger()
+    {
+        if (!$this->flashMessenger) {
+            $this->flashMessenger = $this->getControllerPluginManager()->get('flashMessenger');
+        }
+
+        return $this->flashMessenger;
+    }
+
+    /**
+     * @return array|object
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * @return PluginManager
+     */
+    protected function getControllerPluginManager()
+    {
+        return $this->controllerPluginManager;
     }
 }

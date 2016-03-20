@@ -2,6 +2,9 @@
 
 namespace SmallUser\Entity;
 
+use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Crypt\Password\Bcrypt;
 
@@ -45,14 +48,14 @@ class User implements UserInterface
     private $email = '';
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="created", type="datetime", nullable=false)
      */
     private $created;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      *
      * @ORM\ManyToMany(targetEntity="UserRole", mappedBy="user")
      */
@@ -63,8 +66,8 @@ class User implements UserInterface
      */
     public function __construct()
     {
-        $this->userRole = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->created = new \DateTime();
+        $this->userRole = new ArrayCollection();
+        $this->created = new DateTime();
     }
 
     /**
@@ -170,7 +173,7 @@ class User implements UserInterface
     /**
      * Get created
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getCreated()
     {
@@ -179,7 +182,7 @@ class User implements UserInterface
 
     /**
      * Set created
-     * @param \DateTime $created
+     * @param DateTime $created
      * @return User
      */
     public function setCreated($created)
@@ -214,7 +217,7 @@ class User implements UserInterface
     /**
      * Get userRole
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getUserRole()
     {

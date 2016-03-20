@@ -7,7 +7,9 @@ use ZfcBase\InputFilter\ProvidesEventsInputFilter;
 
 class LoginFilter extends ProvidesEventsInputFilter
 {
-
+    /**
+     * LoginFilter constructor.
+     */
     public function __construct()
     {
         $this->add([
