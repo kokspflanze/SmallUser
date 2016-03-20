@@ -1,8 +1,8 @@
 <?php
 
 use SmallUser\Controller;
-use SmallUser\Service;
 use SmallUser\Entity;
+use SmallUser\Service;
 
 return [
     'router' => [
