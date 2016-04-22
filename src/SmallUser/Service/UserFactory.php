@@ -4,6 +4,7 @@
 namespace SmallUser\Service;
 
 
+use Zend\Mvc\Controller\PluginManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -19,10 +20,10 @@ class UserFactory implements FactoryInterface
     {
         /** @noinspection PhpParamsInspection */
         return new $this->className(
-            $serviceLocator->get('small_user_auth_service'),
+            $serviceLocator->get(UserAuthFactory::class),
             $serviceLocator->get('small_user_login_form'),
             $serviceLocator->get('Config')['small-user'],
-            $serviceLocator->get('ControllerPluginManager')
+            $serviceLocator->get(PluginManager::class)
         );
     }
 

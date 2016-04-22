@@ -12,7 +12,11 @@
   "homepage": "https://github.com/kokspflanze/SmallUser",
   "autoload": {
     "psr-0": {
-      "SmallUser\\": "src/",
+      "SmallUser\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-0": {
       "SmallUserTest\\": "tests/"
     }
   },

@@ -2,6 +2,7 @@
 
 use SmallUser\Controller;
 use SmallUser\Entity;
+use SmallUser\Form;
 use SmallUser\Service;
 
 return [
@@ -25,16 +26,20 @@ return [
     ],
     'service_manager' => [
         'abstract_factories' => [
-            'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
-            'Zend\Log\LoggerAbstractServiceFactory',
+            \Zend\Cache\Service\StorageCacheAbstractServiceFactory::class,
+            \Zend\Log\LoggerAbstractServiceFactory::class,
         ],
         'aliases' => [
             'zfcuser_zend_db_adapter' => Zend\Db\Adapter\Adapter::class,
             'small_user_service' => Service\User::class,
             'zfcuser_user_service' => Service\User::class,
+            'small_user_auth_service' => Service\UserAuthFactory::class,
+            'small_user_login_form' => Form\LoginFactory::class,
         ],
         'factories' => [
-            Service\User::class => Service\UserFactory::class
+            Service\User::class => Service\UserFactory::class,
+            Service\UserAuthFactory::class => Service\UserAuthFactory::class,
+            Form\LoginFactory::class => Form\LoginFactory::class,
         ],
     ],
     'controllers' => [

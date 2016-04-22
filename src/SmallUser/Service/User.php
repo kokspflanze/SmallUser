@@ -16,7 +16,6 @@ class User
     protected $failedLoginMessage = 'Authentication failed. Please try again.';
     /** @var FlashMessenger */
     protected $flashMessenger;
-
     /** @var AuthenticationService */
     protected $authService;
     /** @var Login */
