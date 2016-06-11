@@ -9,7 +9,7 @@ return [
     'router' => [
         'routes' => [
             'small-user-auth' => [
-                'type' => 'segment',
+                'type' => 'Segment',
                 'options' => [
                     'route' => '/auth[/:action][/:code].html',
                     'constraints' => [
@@ -25,10 +25,6 @@ return [
         ],
     ],
     'service_manager' => [
-        'abstract_factories' => [
-            \Zend\Cache\Service\StorageCacheAbstractServiceFactory::class,
-            \Zend\Log\LoggerAbstractServiceFactory::class,
-        ],
         'aliases' => [
             'zfcuser_zend_db_adapter' => Zend\Db\Adapter\Adapter::class,
             'small_user_service' => Service\User::class,
