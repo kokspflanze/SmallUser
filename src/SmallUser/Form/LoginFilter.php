@@ -3,9 +3,9 @@
 namespace SmallUser\Form;
 
 
-use ZfcBase\InputFilter\ProvidesEventsInputFilter;
+use Zend\InputFilter\InputFilter;
 
-class LoginFilter extends ProvidesEventsInputFilter
+class LoginFilter extends InputFilter
 {
     /**
      * LoginFilter constructor.

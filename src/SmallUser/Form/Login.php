@@ -2,10 +2,9 @@
 
 namespace SmallUser\Form;
 
-use Zend\Form\Element;
-use ZfcBase\Form\ProvidesEventsForm;
+use Zend\Form;
 
-class Login extends ProvidesEventsForm
+class Login extends Form\Form
 {
     /**
      * Login constructor.
@@ -43,7 +42,7 @@ class Login extends ProvidesEventsForm
             ],
         ]);
 
-        $submitElement = new Element\Button('submit');
+        $submitElement = new Form\Element\Button('submit');
         $submitElement
             ->setLabel('Sign In')
             ->setAttributes([
