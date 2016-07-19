@@ -34,8 +34,8 @@
     "zendframework/zend-crypt": "~2.5|~3.0",
     "zendframework/zend-stdlib": "~2.5|~3.0",
     "zendframework/zend-hydrator": "~1.1|~2.1",
-    "kokspflanze/bjy-authorize": "dev-master",
-    "doctrine/doctrine-orm-module": "0.*"
+    "kokspflanze/bjy-authorize": "~1.6",
+    "doctrine/doctrine-orm-module": "~1.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0|~5.0",
