@@ -3,6 +3,7 @@
 namespace SmallUser\Form;
 
 use Zend\Form;
+use Zend\Form\Element;
 
 class Login extends Form\Form
 {
@@ -14,7 +15,7 @@ class Login extends Form\Form
         parent::__construct();
 
         $this->add([
-            'type' => 'Zend\Form\Element\Csrf',
+            'type' => Element\Csrf::class,
             'name' => 'eugzhoe45gh3o49ugfgj2wrtu7gz50'
         ]);
 
@@ -42,7 +43,7 @@ class Login extends Form\Form
             ],
         ]);
 
-        $submitElement = new Form\Element\Button('submit');
+        $submitElement = new Element\Button('submit');
         $submitElement
             ->setLabel('Sign In')
             ->setAttributes([

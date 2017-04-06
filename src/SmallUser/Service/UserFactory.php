@@ -1,13 +1,10 @@
 <?php
 
-
 namespace SmallUser\Service;
-
 
 use Interop\Container\ContainerInterface;
 use Zend\Mvc\Controller\PluginManager;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 class UserFactory implements FactoryInterface
 {
@@ -29,15 +26,6 @@ class UserFactory implements FactoryInterface
             $container->get('Config')['small-user'],
             $container->get(PluginManager::class)
         );
-    }
-
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return User
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, $this->className);
     }
 
 }

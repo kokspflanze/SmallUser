@@ -1,12 +1,9 @@
 <?php
 
-
 namespace SmallUser\Form;
 
-
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 class LoginFactory implements FactoryInterface
 {
@@ -22,15 +19,6 @@ class LoginFactory implements FactoryInterface
         $form->setInputFilter(new LoginFilter());
 
         return $form;
-    }
-
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return Login
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, Login::class);
     }
 
 }

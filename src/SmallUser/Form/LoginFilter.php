@@ -2,7 +2,6 @@
 
 namespace SmallUser\Form;
 
-
 use Zend\InputFilter\InputFilter;
 
 class LoginFilter extends InputFilter

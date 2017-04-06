@@ -1,14 +1,12 @@
 <?php
 
-
 namespace SmallUser\Service;
 
 use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
 use SmallUser\Model\AuthStorage;
 use Zend\Authentication\AuthenticationService;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 class UserAuthFactory implements FactoryInterface
 {
@@ -32,15 +30,6 @@ class UserAuthFactory implements FactoryInterface
         $authService = new AuthenticationService();
         $authService->setStorage(new AuthStorage());
         return $authService->setAdapter($adapter);
-    }
-
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return AuthenticationService
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, AuthenticationService::class);
     }
 
 }

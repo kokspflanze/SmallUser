@@ -1,6 +1,5 @@
 <?php
 
-
 namespace SmallUser\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
