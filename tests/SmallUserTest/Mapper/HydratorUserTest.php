@@ -1,13 +1,12 @@
 <?php
 
-
 namespace SmallUserTest\Mapper;
 
-
+use PHPUnit\Framework\TestCase;
 use SmallUser\Entity\User;
 use SmallUser\Mapper\HydratorUser;
 
-class HydratorUserTest extends \PHPUnit_Framework_TestCase
+class HydratorUserTest extends TestCase
 {
     public function testExtract()
     {

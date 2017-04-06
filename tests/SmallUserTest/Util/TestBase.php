@@ -1,6 +1,5 @@
 <?php
 
-
 namespace SmallUserTest\Util;
 
 use PHPUnit_Framework_TestCase as TestCase;
@@ -9,11 +8,6 @@ class TestBase extends TestCase
 {
     /** @var  string */
     protected $className;
-
-    public function setUp()
-    {
-        parent::setUp();
-    }
 
     /**
      * @param $methodName

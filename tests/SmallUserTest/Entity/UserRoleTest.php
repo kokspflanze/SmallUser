@@ -1,18 +1,18 @@
 <?php
 
-
 namespace SmallUserTest\Entity;
 
-
+use Doctrine\Common\Collections\Collection;
+use PHPUnit\Framework\TestCase;
 use SmallUser\Entity\User;
 use SmallUser\Entity\UserRole;
 
-class UserRoleTest extends \PHPUnit_Framework_TestCase
+class UserRoleTest extends TestCase
 {
     public function testConstruct()
     {
         $entity = new UserRole();
-        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $entity->getUser());
+        $this->assertInstanceOf(Collection::class, $entity->getUser());
         $this->assertEmpty($entity->getUser());
     }
 
@@ -64,7 +64,7 @@ class UserRoleTest extends \PHPUnit_Framework_TestCase
         $result = $entity->addUser($entityUser);
 
         $this->assertEquals($entity, $result);
-        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $result->getUser());
+        $this->assertInstanceOf(Collection::class, $result->getUser());
         $this->assertNotEmpty($result->getUser()[0]);
         $this->assertEquals($entityUser, $result->getUser()[0]);
     }
@@ -76,7 +76,7 @@ class UserRoleTest extends \PHPUnit_Framework_TestCase
         $entityUser = new User();
         $entity->addUser($entityUser);
         $entity->removeUser($entityUser);
-        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $entity->getUser());
+        $this->assertInstanceOf(Collection::class, $entity->getUser());
         $this->assertEmpty($entity->getUser());
 
     }

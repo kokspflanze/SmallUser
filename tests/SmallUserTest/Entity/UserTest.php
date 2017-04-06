@@ -1,21 +1,26 @@
 <?php
 
-
 namespace SmallUserTest\Entity;
 
+use BjyAuthorize\Provider\Role\ProviderInterface;
+use DateTime;
+use Doctrine\Common\Collections\Collection;
+use PHPUnit\Framework\TestCase;
 use SmallUser\Entity\User;
+use SmallUser\Entity\UserInterface;
 use SmallUser\Entity\UserRole;
 use Zend\Crypt\Password\Bcrypt;
+use Zend\Permissions\Acl\Role\RoleInterface;
 
-class UserTest extends \PHPUnit_Framework_TestCase
+class UserTest extends TestCase
 {
     public function testConstruct()
     {
         $entity = new User();
 
-        $this->assertInstanceOf('DateTime', $entity->getCreated());
-        $this->assertInstanceOf('SmallUser\Entity\UserInterface', $entity);
-        $this->assertInstanceOf('BjyAuthorize\Provider\Role\ProviderInterface', $entity);
+        $this->assertInstanceOf(DateTime::class, $entity->getCreated());
+        $this->assertInstanceOf(UserInterface::class, $entity);
+        $this->assertInstanceOf(ProviderInterface::class, $entity);
     }
 
     public function testUserId()
@@ -61,7 +66,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     public function testCreated()
     {
         $entity = new User();
-        $dateTime = new \DateTime();
+        $dateTime = new DateTime();
         $result = $entity->setCreated($dateTime);
 
         $this->assertEquals($entity, $result);
@@ -76,7 +81,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($entity, $result);
 
         $result = $entity->getUserRole();
-        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $result);
+        $this->assertInstanceOf(Collection::class, $result);
         $this->assertEquals($entityRole, $result[0]);
     }
 
@@ -89,7 +94,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $entity->removeUserRole($entityRole);
 
         $result = $entity->getUserRole();
-        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $result);
+        $this->assertInstanceOf(Collection::class, $result);
         $this->assertEmpty($result);
     }
 
@@ -103,7 +108,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $entity->addUserRole($entityRole);
         $result = $entity->getRoles();
         $this->assertTrue(is_array($result));
-        $this->assertInstanceOf('Zend\Permissions\Acl\Role\RoleInterface', $result[0]);
+        $this->assertInstanceOf(RoleInterface::class, $result[0]);
     }
 
     public function testHashPassword()
@@ -117,6 +122,5 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($result);
     }
-
 
 }
