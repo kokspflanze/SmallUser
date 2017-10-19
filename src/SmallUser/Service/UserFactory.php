@@ -23,7 +23,7 @@ class UserFactory implements FactoryInterface
         return new $this->className(
             $container->get(UserAuthFactory::class),
             $container->get('small_user_login_form'),
-            $container->get('Config')['small-user'],
+            $container->get('config')['small-user'],
             $container->get(PluginManager::class)
         );
     }
