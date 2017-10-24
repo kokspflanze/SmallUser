@@ -2,7 +2,9 @@
 
 namespace SmallUser\Form;
 
+use Zend\Filter;
 use Zend\InputFilter\InputFilter;
+use Zend\Validator;
 
 class LoginFilter extends InputFilter
 {
@@ -14,10 +16,12 @@ class LoginFilter extends InputFilter
         $this->add([
             'name' => 'username',
             'required' => true,
-            'filters' => [['name' => 'StringTrim']],
+            'filters' => [
+                ['name' => Filter\StringTrim::class]
+            ],
             'validators' => [
                 [
-                    'name' => 'StringLength',
+                    'name' => Validator\StringLength::class,
                     'options' => [
                         'min' => 3,
                         'max' => 16,
@@ -29,10 +33,12 @@ class LoginFilter extends InputFilter
         $this->add([
             'name' => 'password',
             'required' => true,
-            'filters' => [['name' => 'StringTrim']],
+            'filters' => [
+                ['name' => Filter\StringTrim::class]
+            ],
             'validators' => [
                 [
-                    'name' => 'StringLength',
+                    'name' => Validator\StringLength::class,
                     'options' => [
                         'min' => 6,
                         'max' => 32,
