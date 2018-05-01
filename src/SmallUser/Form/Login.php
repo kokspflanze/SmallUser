@@ -47,7 +47,7 @@ class Login extends Form\Form
         $submitElement
             ->setLabel('Sign In')
             ->setAttributes([
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'type' => 'submit',
             ]);
 
