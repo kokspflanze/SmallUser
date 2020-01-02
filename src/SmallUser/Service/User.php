@@ -5,9 +5,9 @@ namespace SmallUser\Service;
 use SmallUser\Entity\UserInterface;
 use SmallUser\Form\Login;
 use SmallUser\Mapper\HydratorUser;
-use Zend\Authentication\AuthenticationService;
-use Zend\Mvc\Controller\Plugin\FlashMessenger;
-use Zend\Mvc\Controller\PluginManager;
+use Laminas\Authentication\AuthenticationService;
+use Laminas\Mvc\Controller\Plugin\FlashMessenger;
+use Laminas\Mvc\Controller\PluginManager;
 
 class User
 {
@@ -120,7 +120,7 @@ class User
     /**
      * @param AuthenticationService $authService
      * @param UserInterface $user
-     * @return \Zend\Authentication\Result
+     * @return \Laminas\Authentication\Result
      */
     protected function getAuthResult(AuthenticationService $authService, UserInterface $user)
     {

@@ -26,7 +26,7 @@ return [
     ],
     'service_manager' => [
         'aliases' => [
-            'zfcuser_zend_db_adapter' => Zend\Db\Adapter\Adapter::class,
+            'zfcuser_zend_db_adapter' => Laminas\Db\Adapter\Adapter::class,
             'small_user_service' => Service\User::class,
             'zfcuser_user_service' => Service\User::class,
             'small_user_auth_service' => Service\UserAuthFactory::class,

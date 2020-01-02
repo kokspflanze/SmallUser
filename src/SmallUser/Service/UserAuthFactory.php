@@ -5,8 +5,8 @@ namespace SmallUser\Service;
 use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
 use SmallUser\Model\AuthStorage;
-use Zend\Authentication\AuthenticationService;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\Authentication\AuthenticationService;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class UserAuthFactory implements FactoryInterface
 {

@@ -27,18 +27,18 @@
     }
   ],
   "require": {
-    "php": "^7.0.6 || ^5.6",
-    "zendframework/zend-servicemanager": "^3.0",
-    "zendframework/zend-mvc": "^3.0",
-    "zendframework/zend-view": "^2.5",
-    "zendframework/zend-crypt": "^3.0",
-    "zendframework/zend-stdlib": "^3.0",
-    "zendframework/zend-hydrator": "^2.1",
-    "kokspflanze/bjy-authorize": "^1.6",
-    "doctrine/doctrine-orm-module": "^1.1.1 || ^2.1"
+    "php": "^7.2",
+    "laminas/laminas-servicemanager": "^3.0",
+    "laminas/laminas-mvc": "^3.0",
+    "laminas/laminas-view": "^2.5",
+    "laminas/laminas-crypt": "^3.0",
+    "laminas/laminas-stdlib": "^3.0",
+    "laminas/laminas-hydrator": "^2.1",
+    "kokspflanze/bjy-authorize": "dev-laminas || ^2.0",
+    "doctrine/doctrine-orm-module": "^2.1"
   },
   "require-dev": {
-    "phpunit/phpunit": "^6.0.8 || ^5.7.15",
+    "phpunit/phpunit": "^7.5.18",
     "satooshi/php-coveralls": "dev-master"
   }
 }

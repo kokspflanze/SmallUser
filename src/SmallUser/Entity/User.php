@@ -6,7 +6,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Zend\Crypt\Password\Bcrypt;
+use Laminas\Crypt\Password\Bcrypt;
 
 /**
  * User
@@ -225,7 +225,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return \Zend\Permissions\Acl\Role\RoleInterface[]
+     * @return \Laminas\Permissions\Acl\Role\RoleInterface[]
      */
     public function getRoles()
     {

@@ -3,7 +3,7 @@
 namespace SmallUser\Entity;
 
 use BjyAuthorize\Provider\Role\ProviderInterface;
-use Zend\Permissions\Acl\Role\RoleInterface;
+use Laminas\Permissions\Acl\Role\RoleInterface;
 
 interface UserInterface extends ProviderInterface
 {

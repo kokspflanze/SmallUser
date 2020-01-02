@@ -2,8 +2,8 @@
 
 namespace SmallUser\Form;
 
-use Zend\Form;
-use Zend\Form\Element;
+use Laminas\Form;
+use Laminas\Form\Element;
 
 class Login extends Form\Form
 {

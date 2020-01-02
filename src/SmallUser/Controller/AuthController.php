@@ -3,8 +3,8 @@
 namespace SmallUser\Controller;
 
 use SmallUser\Service\User;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
 
 class AuthController extends AbstractActionController
 {
@@ -24,7 +24,7 @@ class AuthController extends AbstractActionController
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function loginAction()
     {
@@ -35,7 +35,7 @@ class AuthController extends AbstractActionController
 
         $form = $this->getUserService()->getLoginForm();
 
-        /** @var \Zend\Http\Request $request */
+        /** @var \Laminas\Http\Request $request */
         $request = $this->getRequest();
 
         if (!$request->isPost()) {

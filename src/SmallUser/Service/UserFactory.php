@@ -3,8 +3,8 @@
 namespace SmallUser\Service;
 
 use Interop\Container\ContainerInterface;
-use Zend\Mvc\Controller\PluginManager;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\Mvc\Controller\PluginManager;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class UserFactory implements FactoryInterface
 {

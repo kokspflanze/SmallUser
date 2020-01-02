@@ -9,8 +9,8 @@ use PHPUnit\Framework\TestCase;
 use SmallUser\Entity\User;
 use SmallUser\Entity\UserInterface;
 use SmallUser\Entity\UserRole;
-use Zend\Crypt\Password\Bcrypt;
-use Zend\Permissions\Acl\Role\RoleInterface;
+use Laminas\Crypt\Password\Bcrypt;
+use Laminas\Permissions\Acl\Role\RoleInterface;
 
 class UserTest extends TestCase
 {

@@ -3,7 +3,7 @@
 namespace SmallUser\Mapper;
 
 use SmallUser\Entity\UserInterface as User;
-use Zend\Hydrator\ClassMethods;
+use Laminas\Hydrator\ClassMethods;
 
 class HydratorUser extends ClassMethods
 {
