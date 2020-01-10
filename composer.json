@@ -35,7 +35,7 @@
     "laminas/laminas-stdlib": "^3.0",
     "laminas/laminas-hydrator": "^2.1",
     "laminas/laminas-filter": "^2.9",
-    "kokspflanze/bjy-authorize": "dev-laminas || ^2.0",
+    "kokspflanze/bjy-authorize": "^2.0",
     "doctrine/doctrine-orm-module": "^2.1"
   },
   "require-dev": {
