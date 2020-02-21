@@ -1,13 +1,14 @@
 {
   "name": "kokspflanze/small-user",
-  "description": "ZendFramework 2 Module for User",
+  "description": "Laminas Module for User",
   "type": "library",
   "keywords": [
     "framework",
-    "zf2",
+    "zf",
     "user",
     "auth",
-    "acl"
+    "acl",
+    "laminas"
   ],
   "homepage": "https://github.com/kokspflanze/SmallUser",
   "autoload": {
