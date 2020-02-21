@@ -11,7 +11,7 @@
   ],
   "homepage": "https://github.com/kokspflanze/SmallUser",
   "autoload": {
-    "psr-0": {
+    "psr-4": {
       "SmallUser\\": "src/"
     }
   },
@@ -33,12 +33,13 @@
     "laminas/laminas-view": "^2.5",
     "laminas/laminas-crypt": "^3.0",
     "laminas/laminas-stdlib": "^3.0",
-    "laminas/laminas-hydrator": "^2.1",
+    "laminas/laminas-hydrator": "^3.0",
     "laminas/laminas-filter": "^2.9",
     "kokspflanze/bjy-authorize": "^2.0",
-    "doctrine/doctrine-orm-module": "^2.1"
+    "doctrine/doctrine-orm-module": "^3.0.2"
   },
   "require-dev": {
-    "phpunit/phpunit": "^7.5.18"
+    "phpunit/phpunit": "^7.5.18",
+    "laminas/laminas-db": "^2.9.3"
   }
 }
