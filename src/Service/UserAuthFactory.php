@@ -32,7 +32,7 @@ class UserAuthFactory implements FactoryInterface
         $authService->setStorage(new AuthStorage(
             new Session(),
             $container->get(EntityManager::class),
-            $configMain['small-user']['user_entity']
+            $configMain['small-user']['user_entity']['class']
         ));
 
         return $authService->setAdapter($adapter);
