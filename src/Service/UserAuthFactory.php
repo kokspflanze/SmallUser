@@ -4,6 +4,7 @@ namespace SmallUser\Service;
 
 use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
+use Laminas\Authentication\Storage\Session;
 use SmallUser\Model\AuthStorage;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\ServiceManager\Factory\FactoryInterface;
@@ -16,7 +17,7 @@ class UserAuthFactory implements FactoryInterface
      * @param array|null $options
      * @return AuthenticationService
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         /** @var \DoctrineModule\Authentication\Adapter\ObjectRepository $adapter */
         $adapter = $container->get('doctrine.authenticationadapter.odm_default');
@@ -27,8 +28,8 @@ class UserAuthFactory implements FactoryInterface
         $config['objectManager'] = $container->get(EntityManager::class);
         $adapter->setOptions($config);
 
-        $authService = new AuthenticationService();
-        $authService->setStorage(new AuthStorage());
+        $authService = new UserAuth();
+        $authService->setStorage(new AuthStorage(new Session(), $container->get(EntityManager::class)));
         return $authService->setAdapter($adapter);
     }
 
