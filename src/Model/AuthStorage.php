@@ -20,13 +20,20 @@ class AuthStorage implements Storage\StorageInterface
     protected $resolvedIdentity = null;
 
     /**
-     * @param Storage\StorageInterface $storage
-     * @param EntityManagerInterface $entityManagerInterface
+     * @var string
      */
-    public function __construct(Storage\StorageInterface $storage, EntityManagerInterface $entityManagerInterface)
+    protected $entityClass = '';
+
+    /**
+     * @param Storage\StorageInterface $storage
+     * @param EntityManagerInterface $entityManager
+     * @param string $entityClass
+     */
+    public function __construct(Storage\StorageInterface $storage, EntityManagerInterface $entityManager, string $entityClass)
     {
         $this->storage = $storage;
-        $this->entityManager = $entityManagerInterface;
+        $this->entityManager = $entityManager;
+        $this->entityClass = $entityClass;
     }
 
     /**
@@ -107,7 +114,7 @@ class AuthStorage implements Storage\StorageInterface
     protected function getUser(int $id)
     {
         /** @var Entity\Repository\User $userRepo */
-        $userRepo = $this->entityManager->getRepository(Entity\User::class);
+        $userRepo = $this->entityManager->getRepository($this->entityClass);
 
         return $userRepo->getUser4Id($id);
     }

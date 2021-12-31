@@ -22,14 +22,19 @@ class UserAuthFactory implements FactoryInterface
         /** @var \DoctrineModule\Authentication\Adapter\ObjectRepository $adapter */
         $adapter = $container->get('doctrine.authenticationadapter.odm_default');
 
-        // In Config there is not EntityManager =(, so we have to add it now =)
-        $config = $container->get('config');
-        $config = $config['authenticationadapter']['odm_default'];
+        // in config there is no EntityManager =(, so we have to add it now =)
+        $configMain = $container->get('config');
+        $config = $configMain['authenticationadapter']['odm_default'];
         $config['objectManager'] = $container->get(EntityManager::class);
         $adapter->setOptions($config);
 
         $authService = new UserAuth();
-        $authService->setStorage(new AuthStorage(new Session(), $container->get(EntityManager::class)));
+        $authService->setStorage(new AuthStorage(
+            new Session(),
+            $container->get(EntityManager::class),
+            $configMain['small-user']['user_entity']
+        ));
+
         return $authService->setAdapter($adapter);
     }
 
