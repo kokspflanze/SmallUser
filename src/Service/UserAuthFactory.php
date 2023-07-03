@@ -24,9 +24,6 @@ class UserAuthFactory implements FactoryInterface
 
         // in config there is no EntityManager =(, so we have to add it now =)
         $configMain = $container->get('config');
-        $config = $configMain['authenticationadapter']['odm_default'];
-        $config['objectManager'] = $container->get(EntityManager::class);
-        $adapter->setOptions($config);
 
         $authService = new UserAuth();
         $authService->setStorage(new AuthStorage(

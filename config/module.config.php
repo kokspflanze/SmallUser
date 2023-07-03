@@ -1,5 +1,6 @@
 <?php
 
+use Doctrine\ORM\EntityManager;
 use SmallUser\Controller;
 use SmallUser\Entity;
 use SmallUser\Form;
@@ -55,16 +56,16 @@ return [
             'SmallUser' => __DIR__ . '/../view',
         ],
     ],
-    'authenticationadapter' => [
-        'odm_default' => [
-            'objectManager' => 'doctrine.documentmanager.odm_default',
-            'identityClass' => Entity\User::class,
-            'identityProperty' => 'username',
-            'credentialProperty' => 'password',
-            'credentialCallable' => 'SmallUser\Entity\User::hashPassword'
-        ],
-    ],
     'doctrine' => [
+        'authentication' => [
+            'odm_default' => [
+                'objectManager' => EntityManager::class,
+                'identityClass' => Entity\User::class,
+                'identityProperty' => 'username',
+                'credentialProperty' => 'password',
+                'credentialCallable' => 'SmallUser\Entity\User::hashPassword',
+            ],
+        ],
         'driver' => [
             'application_entities' => [
                 'class' => Doctrine\ORM\Mapping\Driver\AnnotationDriver::class,
