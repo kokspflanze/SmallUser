@@ -3,6 +3,7 @@
 namespace SmallUser\Service;
 
 use Interop\Container\ContainerInterface;
+use Laminas\Form\FormAbstractServiceFactory;
 use Laminas\Mvc\Controller\PluginManager;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 
@@ -22,7 +23,7 @@ class UserFactory implements FactoryInterface
         /** @noinspection PhpParamsInspection */
         return new $this->className(
             $container->get(UserAuthFactory::class),
-            $container->get('small_user_login_form'),
+            $container->get('FormElementManager')->get(\SmallUser\Form\Login::class),
             $container->get('config')['small-user'],
             $container->get(PluginManager::class)
         );
