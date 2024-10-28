@@ -3,7 +3,6 @@
 namespace SmallUser\Service;
 
 use Interop\Container\ContainerInterface;
-use Laminas\Form\FormAbstractServiceFactory;
 use Laminas\Mvc\Controller\PluginManager;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 
