@@ -6,7 +6,6 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Laminas\Crypt\Password\Bcrypt;
 
 /**
  * User
@@ -77,8 +76,7 @@ class User implements UserInterface
      */
     public static function hashPassword($entity, $plaintext)
     {
-        $bCrypt = new Bcrypt();
-        return $bCrypt->verify($plaintext, $entity->getPassword());
+        return password_verify($plaintext, $entity->getPassword());
     }
 
     /**
