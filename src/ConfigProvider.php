@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SmallUser\Service;
+namespace SmallUser;
 
 use SmallUser\Entity;
 use SmallUser\Form;
