@@ -3,10 +3,8 @@
 namespace SmallUser\Controller;
 
 use SmallUser\Service\User;
-use Laminas\Mvc\Controller\AbstractActionController;
-use Laminas\View\Model\ViewModel;
 
-class AuthController extends AbstractActionController
+class AuthController
 {
     const ERROR_NAME_SPACE = 'small-user-auth';
     const ROUTE_LOGGED_IN = 'home';

@@ -22,8 +22,6 @@ class User
     protected $loginForm;
     /** @var array */
     protected $config;
-    /** @var PluginManager */
-    protected $controllerPluginManager;
 
     /**
      * User constructor.
@@ -41,7 +39,6 @@ class User
         $this->authService = $authService;
         $this->loginForm = $loginForm;
         $this->config = $config;
-        $this->controllerPluginManager = $controllerPluginManager;
     }
 
     /**
@@ -56,8 +53,6 @@ class User
         $form->setHydrator(new HydratorUser());
         $form->bind(new $class);
         $form->setData($data);
-
-        $this->getFlashMessenger()->setNamespace($this::ERROR_NAME_SPACE)->addMessage($this->getFailedLoginMessage());
 
         if (!$form->isValid()) {
             return false;
@@ -114,7 +109,7 @@ class User
      */
     protected function doLogin(UserInterface $user)
     {
-        $this->getFlashMessenger()->clearCurrentMessagesFromNamespace($this::ERROR_NAME_SPACE);
+
     }
 
     /**
@@ -223,18 +218,6 @@ class User
     }
 
     /**
-     * @return FlashMessenger
-     */
-    protected function getFlashMessenger()
-    {
-        if (!$this->flashMessenger) {
-            $this->flashMessenger = $this->getControllerPluginManager()->get('flashMessenger');
-        }
-
-        return $this->flashMessenger;
-    }
-
-    /**
      * @return array|object
      */
     public function getConfig()
@@ -242,11 +225,4 @@ class User
         return $this->config;
     }
 
-    /**
-     * @return PluginManager
-     */
-    protected function getControllerPluginManager()
-    {
-        return $this->controllerPluginManager;
-    }
 }

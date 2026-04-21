@@ -2,7 +2,7 @@
 
 namespace SmallUser\Controller;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class AuthFactory implements FactoryInterface

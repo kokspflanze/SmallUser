@@ -3,7 +3,7 @@
 namespace SmallUser\Service;
 
 use Doctrine\ORM\EntityManager;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\Authentication\Storage\Session;
 use SmallUser\Model\AuthStorage;
 use Laminas\Authentication\AuthenticationService;
