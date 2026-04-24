@@ -28,6 +28,11 @@
     },
   "require": {
     "php": "^8.2",
+    "mezzio/mezzio-authentication": "^1.13",
+    "mezzio/mezzio-authentication-session": "^1.11",
+    "mezzio/mezzio-session": "^1.17",
+    "mezzio/mezzio-session-cache": "^1.17",
+    "mezzio/mezzio-session-ext": "^1.21",
     "laminas/laminas-servicemanager": "^3.0",
     "laminas/laminas-stdlib": "^3.0",
     "laminas/laminas-form"  : "^3.21",
