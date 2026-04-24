@@ -7,57 +7,44 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * User
- *
- * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="username_UNIQUE", columns={"username"})})
- * @ORM\MappedSuperclass
- * @ORM\Entity(repositoryClass="SmallUser\Entity\Repository\User")
  */
+#[ORM\Table(name: 'user')]
+#[ORM\UniqueConstraint(name: 'username_UNIQUE', columns: ['username'])]
+#[ORM\MappedSuperclass]
+#[ORM\Entity(repositoryClass: \SmallUser\Entity\Repository\User::class)]
 class User implements UserInterface
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="usrId", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $usrId;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="username", type="string", length=45, nullable=false)
+     * @var integer|null
      */
+    #[ORM\Column(name: 'id', type: 'integer', nullable: false)]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    private ?int $usrId = null;
+
+
+    #[ORM\Column(name: 'username', type: 'string', length: 60, nullable: false)]
     private $username = '';
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=60, nullable=false)
-     */
+
+    #[ORM\Column(name: 'password', type: 'string', length: 60, nullable: false)]
     private $password = '';
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255, nullable=false)
-     */
+
+    #[ORM\Column(name: 'email', type: 'string', length: 60, nullable: false)]
     private $email = '';
 
-    /**
-     * @var DateTime
-     *
-     * @ORM\Column(name="created", type="datetime", nullable=false)
-     */
-    private $created;
 
-    /**
-     * @var Collection
-     *
-     * @ORM\ManyToMany(targetEntity="UserRole", mappedBy="user")
-     */
+    #[ORM\Column(name: 'created', type: 'datetime', nullable: false)]
+    private ?DateTime $created = null;
+
+
+    /** @var UserRole[] */
+    #[ORM\ManyToMany(targetEntity: \SmallUser\Entity\UserRole::class, mappedBy: 'user')]
     private $userRole;
 
     /**
@@ -225,9 +212,29 @@ class User implements UserInterface
     /**
      * @return \Laminas\Permissions\Acl\Role\RoleInterface[]
      */
-    public function getRoles()
+    public function getRoles(): iterable
     {
-        return $this->userRole->getValues();
+        $roleReturn = [];
+        foreach ($this->userRole as $role) {
+            $roleReturn[] = $role->getRoleId();
+        }
+
+        return $roleReturn;
+    }
+
+    public function getIdentity() : string
+    {
+        return (string)$this->usrId;
+    }
+
+    public function getDetail(string $name, $default = null)
+    {
+        return $this->{$name} ?? $default;
+    }
+
+    public function getDetails() : array
+    {
+        return [];
     }
 
 }

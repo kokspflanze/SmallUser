@@ -2,8 +2,8 @@
 
 namespace SmallUser\Service;
 
+use Mezzio\Authentication\AuthenticationInterface;
 use Psr\Container\ContainerInterface;
-use Laminas\Mvc\Controller\PluginManager;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class UserFactory implements FactoryInterface
@@ -21,7 +21,7 @@ class UserFactory implements FactoryInterface
     {
         /** @noinspection PhpParamsInspection */
         return new $this->className(
-            $container->get(UserAuthFactory::class),
+            $container->get(AuthenticationInterface::class),
             $container->get('FormElementManager')->get(\SmallUser\Form\Login::class),
             $container->get('config')['small-user']
         );

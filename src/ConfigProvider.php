@@ -27,7 +27,7 @@ class ConfigProvider
             'dependencies' => $this->getDependencies(),
             'small-user' => [
                 'user_entity' => [
-                    'class' => Entity\User::class,
+                    'class' => Entity\UserInterface::class,
                     'username' => 'username'
                 ],
                 'login' => [
@@ -43,15 +43,10 @@ class ConfigProvider
     public function getDependencies(): array
     {
         return [
-            'aliases' => [
-                'small_user_service' => Service\User::class,
-                'zfcuser_user_service' => Service\User::class,
-                'small_user_auth_service' => Service\UserAuthFactory::class,
-                'small_user_login_form' => Form\LoginFactory::class,
-            ],
             'factories' => [
+                Entity\UserInterface::class => Entity\User::class;
                 Service\User::class => Service\UserFactory::class,
-                Service\UserAuthFactory::class => Service\UserAuthFactory::class,
+                Service\DoctrineUserRepository::class => Service\DoctrineUserRepositoryFactory::class,
                 Form\LoginFactory::class => Form\LoginFactory::class,
             ],
         ];

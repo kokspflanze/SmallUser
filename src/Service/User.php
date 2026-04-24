@@ -2,21 +2,20 @@
 
 namespace SmallUser\Service;
 
+use Laminas\Diactoros\ServerRequest;
+use Mezzio\Authentication\AuthenticationInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use SmallUser\Entity\UserInterface;
 use SmallUser\Form\Login;
 use SmallUser\Mapper\HydratorUser;
-use Laminas\Authentication\AuthenticationService;
-use Laminas\Mvc\Controller\Plugin\FlashMessenger;
-use Laminas\Mvc\Controller\PluginManager;
 
 class User
 {
     const ERROR_NAME_SPACE = 'small-user-auth';
     /** @var string */
     protected $failedLoginMessage = 'Authentication failed. Please try again.';
-    /** @var FlashMessenger */
-    protected $flashMessenger;
-    /** @var AuthenticationService */
+
+    /** @var AuthenticationInterface */
     protected $authService;
     /** @var Login */
     protected $loginForm;
@@ -31,10 +30,9 @@ class User
      * @param PluginManager $controllerPluginManager
      */
     public function __construct(
-        AuthenticationService $authService,
+        AuthenticationInterface $authService,
         Login $loginForm,
-        array $config,
-        PluginManager $controllerPluginManager
+        array $config
     ) {
         $this->authService = $authService;
         $this->loginForm = $loginForm;
@@ -45,14 +43,12 @@ class User
      * @param array $data
      * @return bool
      */
-    public function login(array $data)
+    public function login(ServerRequestInterface $request)
     {
         $class = $this->getUserEntityClassName();
 
         $form = $this->getLoginForm();
-        $form->setHydrator(new HydratorUser());
-        $form->bind(new $class);
-        $form->setData($data);
+        $form->setData($request->getParsedBody());
 
         if (!$form->isValid()) {
             return false;
@@ -62,10 +58,7 @@ class User
             return false;
         }
 
-        /** @var UserInterface $user */
-        $user = $form->getData();
-
-        return $this->handleAuth4UserLogin($user);
+        return $this->handleAuth4UserLogin($request);
     }
 
     /**
@@ -96,8 +89,9 @@ class User
         return $this->loginForm;
     }
 
+
     /**
-     * @return AuthenticationService
+     * @return AuthenticationInterface
      */
     public function getAuthService()
     {
@@ -105,9 +99,9 @@ class User
     }
 
     /**
-     * @param UserInterface $user
+     * @param $user
      */
-    protected function doLogin(UserInterface $user)
+    protected function doLogin($user)
     {
 
     }
@@ -117,14 +111,9 @@ class User
      * @param UserInterface $user
      * @return \Laminas\Authentication\Result
      */
-    protected function getAuthResult(AuthenticationService $authService, UserInterface $user)
+    protected function getAuthResult(ServerRequestInterface $request)
     {
-        /** @var \DoctrineModule\Authentication\Adapter\ObjectRepository $adapter */
-        $adapter = $authService->getAdapter();
-        $adapter->setIdentity($user->getUsername());
-        $adapter->setCredential($user->getPassword());
-
-        return $authService->authenticate($adapter);
+        return $this->getAuthService()->authenticate($request);
     }
 
     /**
@@ -160,7 +149,7 @@ class User
      * @param UserInterface $user
      * @return bool
      */
-    protected function handleInvalidLogin(UserInterface $user)
+    protected function handleInvalidLogin(ServerRequestInterface $request)
     {
         return false;
     }
@@ -190,28 +179,18 @@ class User
     }
 
     /**
-     * @param UserInterface $user
+     * @param UserInterface $request
      * @return bool
      */
-    protected function handleAuth4UserLogin(UserInterface $user)
+    protected function handleAuth4UserLogin(ServerRequestInterface $request)
     {
-        $authService = $this->getAuthService();
-        $authResult = $this->getAuthResult($authService, $user);
+        $user = $this->getAuthResult($request);
         $result = false;
 
-        if ($authResult->isValid()) {
-            $user = $authResult->getIdentity();
-            if ($this->isValidLogin($user)) {
-                $this->doLogin($user);
-
-                $result = true;
-            } else {
-                // Login correct but not active or blocked or smth else
-                $authService->clearIdentity();
-                $authService->getStorage()->clear();
-            }
+        if ($user !== null) {
+            $this->doLogin($user);
         } else {
-            $this->handleInvalidLogin($user);
+            $this->handleInvalidLogin($request);
         }
 
         return $result;

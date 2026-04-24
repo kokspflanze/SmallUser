@@ -5,7 +5,7 @@ namespace SmallUser\Entity;
 use BjyAuthorize\Provider\Role\ProviderInterface;
 use Laminas\Permissions\Acl\Role\RoleInterface;
 
-interface UserInterface extends ProviderInterface
+interface UserInterface extends \Mezzio\Authentication\UserInterface
 {
     /**
      * @param self $entity
@@ -52,7 +52,7 @@ interface UserInterface extends ProviderInterface
     /**
      * @return RoleInterface[]
      */
-    public function getRoles();
+    public function getRoles(): iterable;
 
 
 } 

@@ -21,12 +21,6 @@
       "SmallUserTest\\": "tests/"
     }
   },
-  "authors": [
-    {
-      "name": "Oliver",
-      "email": "kokspflanze@protonmail.com"
-    }
-  ],
   "extra": {
       "laminas": {
         "config-provider": "SmallUser\\ConfigProvider"
@@ -36,7 +30,7 @@
     "php": "^8.2",
     "laminas/laminas-servicemanager": "^3.0",
     "laminas/laminas-stdlib": "^3.0",
-    "laminas/laminas-hydrator": "^3.0 || ^4.0",
+    "laminas/laminas-form"  : "^3.21",
     "laminas/laminas-filter": "^2.9"
   },
   "require-dev": {

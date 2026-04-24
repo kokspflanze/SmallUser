@@ -2,9 +2,7 @@
 
 namespace SmallUser\Entity;
 
-use BjyAuthorize\Acl\HierarchicalRoleInterface;
-
-interface UserRoleInterface extends HierarchicalRoleInterface
+interface UserRoleInterface
 {
     /**
      * Set roleId
