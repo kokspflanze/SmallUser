@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace SmallUser;
 
+use Laminas\ServiceManager\Factory\InvokableFactory;
+use Mezzio\Authentication\AuthenticationInterface;
+use Mezzio\Authentication\Session\PhpSession;
+use Mezzio\Authentication\UserRepositoryInterface;
 use SmallUser\Entity;
 use SmallUser\Form;
 use SmallUser\Service;
@@ -43,11 +47,17 @@ class ConfigProvider
     public function getDependencies(): array
     {
         return [
+            'aliases'    => [
+                AuthenticationInterface::class => PhpSession::class,
+                UserRepositoryInterface::class => DoctrineUserRepository::class,
+                Entity\UserInterface::class => Entity\User::class,
+            ],
             'factories' => [
-                Entity\UserInterface::class => Entity\User::class;
+                Entity\User::class => InvokableFactory::class,
+                Form\LoginFactory::class => Form\LoginFactory::class,
+                Handler\LoginHandler::class    => Handler\LoginHandlerFactory::class,
                 Service\User::class => Service\UserFactory::class,
                 Service\DoctrineUserRepository::class => Service\DoctrineUserRepositoryFactory::class,
-                Form\LoginFactory::class => Form\LoginFactory::class,
             ],
         ];
     }
