@@ -49,13 +49,13 @@ class ConfigProvider
         return [
             'aliases'    => [
                 AuthenticationInterface::class => PhpSession::class,
-                UserRepositoryInterface::class => DoctrineUserRepository::class,
+                UserRepositoryInterface::class => Service\DoctrineUserRepository::class,
                 Entity\UserInterface::class => Entity\User::class,
             ],
             'factories' => [
                 Entity\User::class => InvokableFactory::class,
                 Form\LoginFactory::class => Form\LoginFactory::class,
-                Handler\LoginHandler::class    => Handler\LoginHandlerFactory::class,
+                Handler\LoginHandler::class => Handler\LoginHandlerFactory::class,
                 Service\User::class => Service\UserFactory::class,
                 Service\DoctrineUserRepository::class => Service\DoctrineUserRepositoryFactory::class,
             ],
