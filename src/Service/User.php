@@ -5,6 +5,8 @@ namespace SmallUser\Service;
 use Laminas\Diactoros\ServerRequest;
 use Laminas\Form\FormInterface;
 use Mezzio\Authentication\AuthenticationInterface;
+use Mezzio\Flash\FlashMessageMiddleware;
+use Mezzio\Flash\FlashMessagesInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SmallUser\Entity\UserInterface;
 use SmallUser\Form\Login;
