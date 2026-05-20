@@ -3,6 +3,7 @@
 namespace SmallUser\Service;
 
 use Laminas\Diactoros\ServerRequest;
+use Laminas\Form\FormInterface;
 use Mezzio\Authentication\AuthenticationInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SmallUser\Entity\UserInterface;
@@ -17,7 +18,7 @@ class User
 
     /** @var AuthenticationInterface */
     protected $authService;
-    /** @var Login */
+    /** @var FormInterface */
     protected $loginForm;
     /** @var array */
     protected $config;
@@ -25,13 +26,13 @@ class User
     /**
      * User constructor.
      * @param AuthenticationService $authService
-     * @param Login $loginForm
+     * @param FormInterface $loginForm
      * @param array $config
      * @param PluginManager $controllerPluginManager
      */
     public function __construct(
         AuthenticationInterface $authService,
-        Login $loginForm,
+        FormInterface $loginForm,
         array $config
     ) {
         $this->authService = $authService;
@@ -82,7 +83,7 @@ class User
     }
 
     /**
-     * @return Login
+     * @return FormInterface
      */
     public function getLoginForm()
     {
