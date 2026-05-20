@@ -39,10 +39,6 @@ class User
         $this->config = $config;
     }
 
-    /**
-     * @param array $data
-     * @return bool
-     */
     public function login(ServerRequestInterface $request)
     {
         $class = $this->getUserEntityClassName();
@@ -50,11 +46,15 @@ class User
         $form = $this->getLoginForm();
         $form->setData($request->getParsedBody());
 
+        /** @var FlashMessagesInterface $flashMessages */
+        $flashMessages = $request->getAttribute(FlashMessageMiddleware::FLASH_ATTRIBUTE);
+        $flashMessages->flash('error', $this->getFailedLoginMessage());
+
         if (!$form->isValid()) {
             return false;
         }
 
-        if (!$this->isIpAllowed()) {
+        if (!$this->isIpAllowed($request)) {
             return false;
         }
 
@@ -99,9 +99,9 @@ class User
     }
 
     /**
-     * @param $user
+     * @param ServerRequestInterface $request
      */
-    protected function doLogin($user)
+    protected function doLogin(ServerRequestInterface $request)
     {
 
     }
@@ -157,7 +157,7 @@ class User
     /**
      * @return bool
      */
-    protected function isIpAllowed()
+    protected function isIpAllowed(ServerRequestInterface $request)
     {
         return true;
     }
