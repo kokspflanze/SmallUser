@@ -58,6 +58,7 @@ class ConfigProvider
                 Handler\LoginHandler::class => Handler\LoginHandlerFactory::class,
                 Service\User::class => Service\UserFactory::class,
                 Service\DoctrineUserRepository::class => Service\DoctrineUserRepositoryFactory::class,
+                Service\LoginHandler::class => InvokableFactory::class,
             ],
         ];
     }

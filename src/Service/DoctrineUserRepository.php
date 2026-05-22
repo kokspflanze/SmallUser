@@ -9,14 +9,14 @@ use Mezzio\Authentication\UserRepositoryInterface;
 
 class DoctrineUserRepository implements UserRepositoryInterface
 {
-    public function __construct(private EntityManagerInterface $entityManager, private array $config) {}
+    public function __construct(private EntityManagerInterface $entityManager, private LoginHandler $loginHandler, private array $config) {}
 
     public function authenticate(string $credential, ?string $password = null): ?UserInterface
     {
         $repository = $this->entityManager->getRepository($this->config['user_entity']['class']);
         $user = $repository->findOneBy([$this->config['user_entity']['username'] => $credential]);
 
-        if ($user && password_verify($password, $user->getPassword())) {
+        if ($user && password_verify($password, $user->getPassword()) && $this->loginHandler->isValidLogin($user)) {
             return $user;
         }
 

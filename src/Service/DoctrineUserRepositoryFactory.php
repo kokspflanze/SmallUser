@@ -12,6 +12,7 @@ class DoctrineUserRepositoryFactory
     {
         return new DoctrineUserRepository(
             $container->get(EntityManagerInterface::class),
+            $container->get(LoginHandler::class),
             $container->get('config')['small-user']
         );
     }

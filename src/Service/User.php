@@ -7,6 +7,8 @@ use Laminas\Form\FormInterface;
 use Mezzio\Authentication\AuthenticationInterface;
 use Mezzio\Flash\FlashMessageMiddleware;
 use Mezzio\Flash\FlashMessagesInterface;
+use Mezzio\Session\SessionInterface;
+use Mezzio\Session\SessionMiddleware;
 use Psr\Http\Message\ServerRequestInterface;
 use SmallUser\Entity\UserInterface;
 use SmallUser\Form\Login;
@@ -51,7 +53,7 @@ class User
 
         /** @var FlashMessagesInterface $flashMessages */
         $flashMessages = $request->getAttribute(FlashMessageMiddleware::FLASH_ATTRIBUTE);
-        $flashMessages->flash('error', $this->getFailedLoginMessage());
+        $flashMessages->flashNow('error', $this->getFailedLoginMessage());
 
         if (!$form->isValid()) {
             return false;
@@ -104,7 +106,7 @@ class User
     /**
      * @param ServerRequestInterface $request
      */
-    protected function doLogin(ServerRequestInterface $request)
+    protected function doLogin(UserInterface $user, ServerRequestInterface $request)
     {
 
     }
@@ -133,18 +135,6 @@ class User
     protected function getFailedLoginMessage()
     {
         return $this->failedLoginMessage;
-    }
-
-    /**
-     * @TODO better fix
-     * @param UserInterface $user
-     * @return bool
-     */
-    protected function isValidLogin(UserInterface $user)
-    {
-        $user->getRoles();
-
-        return true;
     }
 
     /**
@@ -191,7 +181,8 @@ class User
         $result = false;
 
         if ($user !== null) {
-            $this->doLogin($user);
+            $this->doLogin($user, $request);
+            $result = true;
         } else {
             $this->handleInvalidLogin($request);
         }
